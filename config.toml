@@ -1,5 +1,5 @@
 # The URL the site will be built for
-base_url = "https://blog.goingforbrooke.com"
+base_url = "http://www.goingforbrooke.com/personal_blog/"
 
 theme = "terminimal"
 
