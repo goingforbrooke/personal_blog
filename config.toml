@@ -9,6 +9,10 @@ compile_sass = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
 
+taxonomies = [
+    {name = "tags"},
+]
+
 [markdown]
 # Whether to do syntax highlighting
 # Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
@@ -16,3 +20,30 @@ highlight_code = true
 
 [extra]
 # Put all your custom variables here
+
+page_titles = "combined"
+
+# One of: blue, green, orange, pink, red.
+accent_color = "blue"
+
+# One of: blue, dark, green, orange, pink, red.
+# Enabling dark background will also modify primary font color
+# to be darker.
+# Defaults to accent color (or, if not accent color specified, to blue).
+background_color = "blue"
+
+# The logo text - defaults to 2 non-breaking spaces.
+logo_text = "Terminimal theme"
+
+# Whether to show links to earlier and later posts
+# on each post page.
+enable_post_view_navigation = true
+
+# The text shown at the bottom of a post,
+# before earlier/later post links.
+post_view_navigation_prompt = "Thanks for reading! Read other posts?"
+
+# Use full Hack character set, not just a subset.
+# Switch this to true if you need full unicode support.
+# Defaults to false.
+use_full_hack_font = false
