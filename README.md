@@ -24,6 +24,14 @@ $ git submodule update --init
 
 ## Posting
 
+Add new posts.
+
 ```console
 $ add `.md` files to `content/`
+```
+
+Preview the site locally.
+
+```console
+$ zola serve
 ```
