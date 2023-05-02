@@ -1,7 +1,9 @@
 # The URL the site will be built for
 base_url = "https://blog.goingforbrooke.com"
 
-# Whether to automatically compile all Sass files in the sass directory
+theme = "terminimal"
+
+# Whether to automatically compile all Sass files in the sass directory (required for Terminimal theme)
 compile_sass = true
 
 # Whether to build a search index to be used later on by a JavaScript library
