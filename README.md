@@ -35,3 +35,5 @@ Preview the site locally.
 ```console
 $ zola serve
 ```
+
+Caution: Failing to zero pad post dates will cause build failures. For example, use `date = 2023-05-10`, not `date = 2023-5-10`.
