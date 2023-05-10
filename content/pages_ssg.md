@@ -1,12 +1,12 @@
 +++
-title = "Zola is nice"
-date = 2019-02-01
+title = "Kill the Mad Scientist! Non-Jekyll Github Pages SSG"
+date = 2023-5-10
 
 [taxonomies]
-tags = ["zola", "nice"]
+tags = ["cicd", "github actions"]
 +++
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nunc eu feugiat sapien. Aenean ligula nunc, laoreet id sem in, interdum bibendum felis. Donec vel dui neque. Praesent ac sem ut justo volutpat rutrum a imperdiet tellus. Nam lobortis massa non hendrerit hendrerit. Vivamus porttitor dignissim turpis, eget aliquam urna tincidunt non. Aliquam et fringilla turpis. Nullam eros est, eleifend in ornare sed, hendrerit eget est. Aliquam tellus felis, suscipit vitae ex vel, fringilla tempus massa. Nulla facilisi. Pellentesque lobortis consequat lectus. Maecenas ac libero elit.
+My first foray into Github Pages seemed like a warmup. Given how strongly Github [touts](https://web.archive.org/web/20230509160818/https://pages.github.com/) its Jekyll integrations, I assumed that the process would painless. Ruby proved me wrong.
 
 <!-- more -->
 
