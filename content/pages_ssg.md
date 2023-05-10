@@ -1,6 +1,6 @@
 +++
 title = "Kill the Mad Scientist! Non-Jekyll Github Pages SSG"
-date = 2023-5-10
+date = 2023-05-10
 
 [taxonomies]
 tags = ["cicd", "github actions"]
