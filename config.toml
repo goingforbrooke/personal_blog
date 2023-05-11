@@ -21,6 +21,9 @@ highlight_code = true
 [extra]
 # Put all your custom variables here
 
+# Define the author for copyright.
+author = "Brooke Deuson"
+
 page_titles = "combined"
 
 # One of: blue, green, orange, pink, red.
