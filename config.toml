@@ -38,6 +38,9 @@ background_color = "blue"
 # The logo text - defaults to 2 non-breaking spaces.
 logo_text = "goingforbrooke"
 
+# Link back to the main site when "goingforbrooke" is clicked in the top left.
+logo_home_link = "https://www.goingforbrooke.com"
+
 # Whether to show links to earlier and later posts
 # on each post page.
 enable_post_view_navigation = true
