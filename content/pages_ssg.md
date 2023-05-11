@@ -40,7 +40,7 @@ These triggers aren’t defined in Github’s documentation and there’s a good
 
 # Recommended Solutions
 
-To disable Jekyll builds, Github [recommends](https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/) adding an empty `.nojekyll` file “to the root of your pages repo.” Initially, this didn’t work because `.nojekyll` needs to exist at the root of the branch that Pages is deploying from. The secret sauce defaults to `gh-pages`, but adding `touch `.nojekyll` to `gh-pages won’t help because most SSGs blow away the branches contents on every build. With Zola, I accomplished this by adding `.nojekyll` to `static/` in the `main` branch, which delivered `.nojekyll` to the root of `gh-pages`. Still, the secret sauce paid it no heed and my site was soon overwritten by Jekyll.
+To disable Jekyll builds, Github [recommends](https://github.blog/2009-12-29-bypassing-jekyll-on-github-pages/) adding an empty `.nojekyll` file “to the root of your pages repo.” Initially, this didn’t work because `.nojekyll` needs to exist at the root of the branch that Pages is deploying from. The secret sauce defaults to `gh-pages`, but adding `.nojekyll` to `gh-pages` won’t help because most SSGs blow away the branch's contents on each build. With Zola, I accomplished this by adding `.nojekyll` to `static/` in the `main` branch, which delivered `.nojekyll` to the root of `gh-pages`. Still, the secret sauce paid it no heed and my site was soon overwritten by Jekyll.
 
 # My Solution
 
