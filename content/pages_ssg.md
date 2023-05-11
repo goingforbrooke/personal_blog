@@ -10,7 +10,7 @@ My first foray into Github Pages seemed like a warmup. Given how strongly Github
 
 <!-- more -->
 
-{{ image(src="jekyll_quickstart.png",
+{{ image(src="/jekyll_quickstart.png",
          alt="Hello Friend",
          style="border-radius: 8px;") }}
 
