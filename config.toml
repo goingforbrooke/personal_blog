@@ -27,7 +27,8 @@ author = "Brooke Deuson"
 page_titles = "combined"
 
 # One of: blue, green, orange, pink, red.
-accent_color = "blue"
+# Me: Added "turquoise" as an option.
+accent_color = "turquoise"
 
 # One of: blue, dark, green, orange, pink, red.
 # Enabling dark background will also modify primary font color
