@@ -23,3 +23,7 @@ I swapped [Jekyll](https://jekyllrb.com) for [Zola](https://www.getzola.org) bec
 ## Curse of the Secret Sauce
 
 Zola comes with a [pre-built workflow](https://www.getzola.org/documentation/deployment/github-pages/) for publishing to Github Pages, but it has to fight with Pages’s secret sauce.
+
+{{ image(src="secret_workflow.png",
+         alt="screenshot of a github workflow called pages-build-deployment",
+         style="border-radius: 8px;") }}
