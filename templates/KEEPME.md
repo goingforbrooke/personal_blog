@@ -1,0 +1,1 @@
+This file exists to preserve the `templates/` directory that it lives in. Otherwise, Git won't add it to the remote and Actions builds will fail. This happens because either Zola the Terminimal theme expects `templates/` to exist, even if no templates are being overridden.
