@@ -13,7 +13,7 @@ My first foray into Github Pages seemed like a warmup. Given how strongly Github
 # Woes of Ruby
 
 {{ image(src="jekyll_quickstart.png",
-         alt="Hello Friend",
+         alt="screnshoot of Jekyll's quickstart page",
          style="border-radius: 8px;") }}
 
 Jekyll’s quick start page belies the complexity of [properly installing Ruby](https://jekyllrb.com/docs/installation/macos/#install-ruby). It threw a bunch of clutter into my `.zshrc` and installed a bunch of non-standard tools on my machine. Keeping non-standard tools up to date was going to cost me more time down the line, and I still wound up editing HTML/CSS/JS on an unaesthetic theme.
