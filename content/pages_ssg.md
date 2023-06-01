@@ -3,7 +3,7 @@ title = "Kill the Mad Scientist! Non-Jekyll Github Pages SSG"
 date = 2023-05-10
 
 [taxonomies]
-tags = ["cicd", "github actions"]
+tags = ["cicd", "github_actions"]
 +++
 
 My first foray into Github Pages seemed like a warmup. Given how strongly Github [touts](https://web.archive.org/web/20230509160818/https://pages.github.com/) its Jekyll integrations, I assumed that the process would painless. Ruby proved me wrong.

@@ -3,7 +3,7 @@ title = "Reflections on Github Actions"
 date = 2023-06-01
 
 [taxonomies]
-tags = ["cicd", "github actions"]
+tags = ["cicd", "github_actions"]
 +++
 
 GitHub Actions came onto the scene four years ago with the promise of free Continuous Integration (CI) for public repos. I was eager to use it, but quickly found that the product was too young. Buggy UI elements and the dearth of community workflows made it more of a time sink than it was worth, so I left it with the expectation that the issues would be solved.
