@@ -14,7 +14,6 @@ Use a Github Action workflow to build "universal" Rust binaries that work for bo
          alt="two realistic Apple logos in red and yellow",
          style="border-radius: 8px;") }}
 
-
 # Issue
 
 With MacOS's new M1 chip architecture, there are now two build targets for MacOS: `x86_64-apple-darwin` and `aarch64-apple-darwin`. Rather than ask our users to identify their chip architecture on a product installation page, I prefer to have one binary that works for all installation targets.
