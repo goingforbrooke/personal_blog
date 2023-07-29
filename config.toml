@@ -55,7 +55,7 @@ post_view_navigation_prompt = "Thanks for reading! Read other posts?"
 # Use full Hack character set, not just a subset.
 # Switch this to true if you need full unicode support.
 # Defaults to false.
-use_full_hack_font = true
+use_full_hack_font = false
 
 favicon = "img/favicon.ico"
 favicon_mimetype = "image/x-icon"
