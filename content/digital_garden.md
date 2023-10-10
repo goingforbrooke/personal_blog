@@ -48,6 +48,7 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
 - terminal
     - [Alacritty](https://github.com/alacritty/alacritty)
     - [Conquer of Completion](https://github.com/neoclide/coc.nvim)
+    - [versioning dotfiles](https://www.atlassian.com/git/tutorials/dotfiles)
     - [`eza`](https://github.com/eza-community/eza)
     - [`fd`](https://github.com/sharkdp/fd)
     - [Neovim](https://github.com/neovim/neovim)
