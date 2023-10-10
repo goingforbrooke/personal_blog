@@ -32,6 +32,9 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
     - [factorio](https://factorio.com/blog/)
     - [Kenneth Reitz](https://kennethreitz.org/essays)
     - [Paul Graham](http://paulgraham.com/articles.html)
+- CI/CD
+    - [branching with Gitflow](https://www.atlassian.com/git/tutorials/comparing-workflows/gitflow-workflow)
+        - great for [CI/CD pipelines](@/versioning_version.md)
 - open source development
     - [awesomeopensource.com](https://awesomeopensource.com)
     - [choosealicense.com](https://choosealicense.com)
