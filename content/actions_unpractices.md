@@ -1,5 +1,5 @@
 +++
-title = "Un-Practices in Github Actions"
+title = "Un-Practices in GitHub Actions"
 date = 2023-10-23
 
 [taxonomies]
