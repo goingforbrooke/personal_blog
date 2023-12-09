@@ -6,7 +6,7 @@ date = 2023-06-13
 tags = ["GUI"]
 +++
 
-I'll be the first to admit that my UIs don't look great and the second to admit it's okay. There's an undue expectation that the simplest application has to have a snazzy frontend (probably written in ReactJS) or it's not legitimate software. My resume's littered with pandering to this sentiment-- so much development time lost to visualizing stakeholder value so my manager had a dashboard to know what we were up to 🤢.
+I'll be the first to admit that my GUIs don't look great and the second to admit it's okay. There's an undue expectation that the simplest application has to have a snazzy frontend (probably written in ReactJS) or it's not legitimate software. My resume's littered with pandering to this sentiment-- so much development time lost to visualizing stakeholder value so my manager had a dashboard to know what we were up to 🤢.
 
 <!-- more -->
 
