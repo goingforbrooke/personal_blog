@@ -12,7 +12,9 @@ I'll be the first to admit that my UIs don't look great and the second to admit 
 
 # I Don't Hate GUIs
 
-I don't hate GUIs, in fact, I love them. I deeply value the people who work on them— they make it possible for the fruits of my software to reach people who aren't comfortable with CLIs. I just don't love them. It's a respectable skillset that I haven't developed because I don't enjoy it.
+{{ image(src="crt_gui.png",
+         alt="Old CRT monitor with a basic blue GUI.",
+         style="border-radius: 8px;") }}
 
 That isn't to say that I don't get why people enjoy it-- it seems incredibly fun to think through a user's experience and design something that not only gives them superpowers, but is a pleasure to use. Beyond basic implementations, there's this aesthetic dimension where skilled UI designers think through fonts, styling, positioning, spacing, and color pallets with an artistic mindset. And that's really really cool.
 
