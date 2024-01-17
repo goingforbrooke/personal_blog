@@ -1,5 +1,23 @@
+{% set start_seconds = 0 %}
+{% if start %}
+  {% set parts = start | split(pat=":") %}
+  {% if parts | length == 3 %}
+    {% set hours = parts | nth(n=0) | int * 3600 %}
+    {% set minutes = parts | nth(n=1) | int * 60 %}
+    {% set seconds = parts | nth(n=2) | int %}
+    {% set start_seconds = hours + minutes + seconds %}
+  {% elif parts | length == 2 %}
+    {% set minutes = parts | nth(n=0) | int * 60 %}
+    {% set seconds = parts | nth(n=1) | int %}
+    {% set start_seconds = minutes + seconds %}
+  {% else %}
+    {% set seconds = parts | nth(n=1) | int %}
+    {% set start_seconds = seconds %}
+  {% endif %}
+{% endif %}
+
 <div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
-  <iframe src="https://www.youtube-nocookie.com/embed/{{ id }}{% if playlist %}?list={{playlist}}{% endif %}{% if autoplay %}?autoplay=1{% endif %}"
+  <iframe src="https://www.youtube-nocookie.com/embed/{{ id }}{% if start_seconds %}&start={{start_seconds}}{% endif %}{% if autoplay %}?autoplay=1{% endif %}"
           style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
 	  loading="lazy"
           frameborder="0"
