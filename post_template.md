@@ -18,4 +18,8 @@ A funny, yet interesting intro paragraph.
 
 Another paragraph.
 
-<blockquote class="twitter-tweet"><p lang="en" dir="ltr">A rare counterexample to the principle of specialization: your site should never seem like it was made by communications people, and the best way to achieve this is for it not to be. This is something founders should continue to micromanage forever.</p>&mdash; Paul Graham (@paulg) <a href="https://twitter.com/paulg/status/1654765304184971264?ref_src=twsrc%5Etfw">May 6, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+# Twitter Embeddings
+
+[How to embed a Post on your website or blog](https://help.twitter.com/en/using-x/how-to-embed-a-post)
+
+<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><p lang="en" dir="ltr">4 years ago today, Denjell &amp; Lucas, the cofounders of Tauri, wrote C++ for the last time and decided that <a href="https://twitter.com/rustlang?ref_src=twsrc%5Etfw">@rustlang</a> would be the foundation for what today is the most popular of all <a href="https://twitter.com/hashtag/OSS?src=hash&amp;ref_src=twsrc%5Etfw">#OSS</a> projects of its age on <a href="https://twitter.com/github?ref_src=twsrc%5Etfw">@github</a> written in Rust:<a href="https://t.co/ZhrGKOJHAd">https://t.co/ZhrGKOJHAd</a> <a href="https://t.co/VsyMRwRXmu">pic.twitter.com/VsyMRwRXmu</a></p>&mdash; Tauri (@TauriApps) <a href="https://twitter.com/TauriApps/status/1660938334884036608?ref_src=twsrc%5Etfw">May 23, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
