@@ -54,9 +54,11 @@ Version bumps are [performed](https://github.com/goingforbrooke/folsum/blob/6456
 ```yaml
 - name: Increment minor/patch version
   # Gate version bumping to only happen on main branch and CI/CD branches.
-  if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/cicd')
-  # Use Cargo Edit to increment the minor/patch version of the project (and not xtask) in Cargo.toml.
-  run: cargo set-version --bump ${{ steps.decide_bump_type.outputs.bump_type }} --package ${{ steps.get_repo_name.outputs.repo_name }}
+  if: > 
+    github.ref == 'refs/heads/main'|| startsWith(github.ref, 'refs/heads/cicd')
+  # Use Cargo Edit to increment minor/patch version of the project in Cargo.toml.
+  run: cargo set-version --bump ${{ steps.decide_bump_type.outputs.bump_type }}
+                         --package ${{ steps.get_repo_name.outputs.repo_name }}
 ```
 
 Using a crate to accomplish `sed`'s job is overkill, but Cargo Edit’s useful later in the pipeline and moves us one step closer toward a self-contained bundling solution. Admittedly, it doesn’t provide a way to extract the version, so we have to [fall back on the shell with `jq`](https://github.com/goingforbrooke/folsum/blob/645604c6ea87394f0ae4bf6c224e3570b8ed04c0/.github/workflows/build_macos.yml#L94-L96).
@@ -64,7 +66,12 @@ Using a crate to accomplish `sed`'s job is overkill, but Cargo Edit’s useful l
 ```yaml
 - name: Get current SemVer version from Cargo.toml
   id: get_current_semver
-  run: echo "semver=v$(cargo metadata --format-version 1 | jq -r '.packages | .[] | select(.name=="${{ steps.get_repo_name.outputs.repo_name }}") | .version')" >> "$GITHUB_OUTPUT"
+  run: echo "semver=v$(
+             cargo metadata --format-version 1 | 
+             jq -r '.packages |
+             .[] |
+             select(.name=="${{ steps.get_repo_name.outputs.repo_name }}") | 
+             .version')" >> "$GITHUB_OUTPUT"
 ```
 
 # Afraid to Commit 💔
