@@ -14,7 +14,7 @@ Version bumping’s the gateway to a smooth CI/CD process and [branch naming con
 # Issue 🧐
 
 {{ image(src="bionic_tree.png",
-         alt="MISSING_ALT_TEXT",
+         alt="Naturally-colored tree inlaid with circuitry designs.",
          style="border-radius: 8px;") }}
 
 Git tags are a popular way to version software and trigger CI/CD pipelines, but they exist in VCS-land, a separate dimension from code. I usually forget to tag commits for the CI/CD pipeline, and even then I find myself routinely refreshing my knowledge of the difference between [lightweight and annotated tags](https://git-scm.com/book/en/v2/Git-Basics-Tagging). If I manage to get those steps right without messing up the number, then I forget to add `—tags` to `git push`. At each step, the tags have the opportunity to get out of sync with the code base.
@@ -86,7 +86,7 @@ The pipeline’s core logic could be improved by appending the short commit hash
 Cooperating with other developers under this model would also be difficult because there are no PRs or branch rules to enforce the `feat/` -> `dev` -> `main` merge workflow. This is because I’m the only one on these projects and I haven’t gotten around to it yet.
 
 {{ image(src="han_solo_shrug.jpg",
-         alt="MISSING_ALT_TEXT",
+         alt="Han Solo shrugging and smiling.",
          style="border-radius: 8px;") }}
 
 Since the pipeline runs on each commit pushed to `cicd/` branches, too much learning or fixing could get expensive in a private repo. A [self-hosted runner](https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners) might alleviate this, but I haven’t bothered trying because I’m afraid that it’s not a faithful reproduction of GitHub’s environment. Even if I’m wrong in that assumption, I’d rather spend time migrating to [Xtask](https://github.com/matklad/cargo-xtask).
