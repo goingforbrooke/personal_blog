@@ -32,17 +32,17 @@ Since I’m dumb, I need a system that’s smarter than I am.
 Merging to the `main` branch triggers a release, which builds a macOS binary and [decides](https://github.com/goingforbrooke/folsum/blob/645604c6ea87394f0ae4bf6c224e3570b8ed04c0/.github/workflows/build_macos.yml#L105-L115) whether to bump the [minor or fix version](https://semver.org). This decision depends on the prefix of the last branch that was merged to `dev`. If it was `fix/`, then the fix version’s incremented, but if it was `feat/`, then the minor version’s incremented.
 
 ```yaml
-      - name: Decide whether to bump the minor or patch version
-        id: decide_bump_type
-        run: | 
-          # If the last branch merged with `dev` starts with "fix/"...
-          if [[ "${{ steps.get_last_dev_merge.outputs.branch_name }}" == fix/* ]]; then
-            # ... then increment the patch version.
-            echo "bump_type=patch"  >> "$GITHUB_OUTPUT"
-          else
-            # Otherwise, assume that the minor version needs incrementation.
-            echo "bump_type=minor" >> "$GITHUB_OUTPUT"
-          fi
+- name: Decide whether to bump the minor or patch version
+  id: decide_bump_type
+  run: | 
+    # If the last branch merged with `dev` starts with "fix/"...
+    if [[ "${{ steps.get_last_dev_merge.outputs.branch_name }}" == fix/* ]]; then
+      # ... then increment the patch version.
+      echo "bump_type=patch"  >> "$GITHUB_OUTPUT"
+    else
+      # Otherwise, assume that the minor version needs incrementation.
+      echo "bump_type=minor" >> "$GITHUB_OUTPUT"
+    fi
 ```
 
 # Version Bumping ⬆️
@@ -52,19 +52,19 @@ Version bumps are [performed](https://github.com/goingforbrooke/folsum/blob/6456
 > I’m using the [xtask framework](https://github.com/matklad/cargo-xtask/) in this example, so the eponymous binary source inside the workspace is specified with `—package`.
 
 ```yaml
-      - name: Increment minor/patch version
-        # Gate version bumping to only happen on main branch and CI/CD branches.
-        if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/cicd')
-        # Use Cargo Edit to increment the minor/patch version of the project (and not xtask) in Cargo.toml.
-        run: cargo set-version --bump ${{ steps.decide_bump_type.outputs.bump_type }} --package ${{ steps.get_repo_name.outputs.repo_name }}
+- name: Increment minor/patch version
+  # Gate version bumping to only happen on main branch and CI/CD branches.
+  if: github.ref == 'refs/heads/main' || startsWith(github.ref, 'refs/heads/cicd')
+  # Use Cargo Edit to increment the minor/patch version of the project (and not xtask) in Cargo.toml.
+  run: cargo set-version --bump ${{ steps.decide_bump_type.outputs.bump_type }} --package ${{ steps.get_repo_name.outputs.repo_name }}
 ```
 
 Using a crate to accomplish `sed`'s job is overkill, but Cargo Edit’s useful later in the pipeline and moves us one step closer toward a self-contained bundling solution. Admittedly, it doesn’t provide a way to extract the version, so we have to [fall back on the shell with `jq`](https://github.com/goingforbrooke/folsum/blob/645604c6ea87394f0ae4bf6c224e3570b8ed04c0/.github/workflows/build_macos.yml#L94-L96).
 
 ```yaml
-      - name: Get current SemVer version from Cargo.toml
-        id: get_current_semver
-        run: echo "semver=v$(cargo metadata --format-version 1 | jq -r '.packages | .[] | select(.name=="${{ steps.get_repo_name.outputs.repo_name }}") | .version')" >> "$GITHUB_OUTPUT"
+- name: Get current SemVer version from Cargo.toml
+  id: get_current_semver
+  run: echo "semver=v$(cargo metadata --format-version 1 | jq -r '.packages | .[] | select(.name=="${{ steps.get_repo_name.outputs.repo_name }}") | .version')" >> "$GITHUB_OUTPUT"
 ```
 
 # Afraid to Commit 💔
