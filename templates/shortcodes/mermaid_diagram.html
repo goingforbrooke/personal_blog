@@ -1,5 +1,15 @@
+{% if title %}
+    {% set config_title = "title: " ~ title %}
+{% endif %}
+
 <pre class="mermaid">
-    title: Hello Title
+    ---
+    {% if title %}
+    {{ config_title }}
+    {% endif %}
+    config:
+      theme: dark
+    ---
     {{ body }}
 </pre>
 <script type="module">
