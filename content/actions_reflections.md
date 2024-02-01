@@ -129,7 +129,7 @@ Automating releases seems like low-hanging fruit, but Action pages aren’t fort
 
 I have nothing against `git tag` and `git push --tags`, but they’re easy steps to forget. Instead, if the GitHub version mirror’s `version` in `Cargo.toml`, then the workflow could later be enhanced with automatic SemVer incrementation.
 
-{% mermaid_with_script() %}
+{% mermaid_diagram() %}
 flowchart LR
     last_merged_prefix_feat["`last merged branch prefix: **feat/**`"]
     last_merged_cmd_minor["`cargo set-version --bump **minor**`"]
