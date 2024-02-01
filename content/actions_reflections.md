@@ -127,7 +127,7 @@ Automating releases seems like low-hanging fruit, but Action pages aren’t fort
 
 > “Typically usage of this action involves adding a step to a build that is gated pushes to git tags”
 
-I have nothing against `git tag` and `git push --tags`, but they’re easy steps to forget. Instead, if the GitHub version mirror’s `version` in `Cargo.toml`, then the workflow could later be enhanced with automatic SemVer incrementation.
+I have nothing against `git tag` and `git push --tags`, but they’re easy steps to forget. Instead, if the GitHub version mirror’s `Cargo.toml`'s `version`, then the workflow could later be enhanced with automatic SemVer incrementation.
 
 {% mermaid_diagram(title="Branch Prefix Triggers") %}
 flowchart LR
