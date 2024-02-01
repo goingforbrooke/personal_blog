@@ -8,15 +8,15 @@
     {% set config_theme = "theme: dark" %}
 {% endif %}
 
-<pre class="mermaid">
-    ---
-    {% if title %}
-    {{ config_title }}
-    {% endif %}
-    config:
-      {{ config_theme }}
-    ---
-    {{ body }}
+<pre class="mermaid" style="display: flex; justify-content: center; align-items: center">
+---
+{% if title %}
+{{ config_title }}
+{% endif %}
+config:
+  {{ config_theme }}
+---
+{{ body }}
 </pre>
 <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
