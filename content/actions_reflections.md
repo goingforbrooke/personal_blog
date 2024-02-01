@@ -59,7 +59,7 @@ jobs:
           targets: aarch64-apple-darwin
 ```
 
-I’m not the biggest fan of YAML, but it’s a nice JSON alternative for mercurial configs that could use some comments. It really shines when there are only 2-3 layers of nesting, but any deeper than leaves me pining for hanging braces. [Matrices](https://www.jacobbolda.com/dynamic-matrix-jobs-in-GitHub-actions) also draw my ire because they ask me to use variables in a context bereft of a debugger. These complexity problems compound when jobs are broken into separate files. After just a few days away from my workflows, they looked alien to me. That’s ok for a dedicated DevOps person working on a large team, but since I’m an army of one on these projects, I strive to keep everything hardcoded in as few files as possible.
+I’m not the biggest fan of YAML, but it’s a nice JSON alternative for mercurial configs that could use some comments. It really shines when there are only 2-3 layers of nesting, but any deeper than that leaves me pining for hanging braces. [Matrices](https://www.jacobbolda.com/dynamic-matrix-jobs-in-GitHub-actions) also draw my ire because they ask me to use variables in a context bereft of a debugger. These complexity problems compound when jobs are broken into separate files. After just a few days away from my workflows, they looked alien to me. That’s ok for a dedicated DevOps person working on a large team, but since I’m an army of one on these projects, I strive to keep everything hardcoded in as few files as possible.
 
 # Pretty Checkmarks
 
