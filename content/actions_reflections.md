@@ -140,7 +140,7 @@ flowchart LR
     last_merged_prefix_fix --> last_merged_cmd_patch
 {% end %}
 
- GH Release doesn’t offer an easy way to `git tag`, but [Create Release](https://github.com/marketplace/actions/create-release) [does quite nicely](https://github.com/goingforbrooke/directory_summarizer/blob/eecbd75d891b4ae7b32ec113dd5af07e28ee3eae/.github/workflows/build_macos.yml#L42). I wish that I had the decision information to start with Create Release before I wandered through the other release Actions.
+GH Release doesn’t offer an easy way to `git tag`, but [Create Release](https://github.com/marketplace/actions/create-release) [does quite nicely](https://github.com/goingforbrooke/directory_summarizer/blob/eecbd75d891b4ae7b32ec113dd5af07e28ee3eae/.github/workflows/build_macos.yml#L42). I wish that I had the decision information to start with Create Release before I wandered through the other release Actions.
 
 # Final Thoughts
 
