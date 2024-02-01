@@ -129,11 +129,16 @@ Automating releases seems like low-hanging fruit, but Action pages aren’t fort
 
 I have nothing against `git tag` and `git push --tags`, but they’re easy steps to forget. Instead, if the GitHub version mirror’s `version` in `Cargo.toml`, then the workflow could later be enhanced with automatic SemVer incrementation.
 
-```mermaid
+{% mermaid_with_script() %}
 flowchart LR
-    last merged branch prefix: `feat/` —> `cargo set-version --bump minor`
-    last merged branch prefix: `fix/` —> `cargo set-version --bump patch`
-```
+    last_merged_prefix_feat["`last merged branch prefix: **feat/**`"]
+    last_merged_cmd_minor["`cargo set-version --bump **minor**`"]
+    last_merged_prefix_fix["`last merged branch prefix: **fix/**`"]
+    last_merged_cmd_patch["`cargo set-version --bump **patch**`"]
+
+    last_merged_prefix_feat --> last_merged_cmd_minor
+    last_merged_prefix_fix --> last_merged_cmd_patch
+{% end %}
 
  GH Release doesn’t offer an easy way to `git tag`, but [Create Release](https://github.com/marketplace/actions/create-release) [does quite nicely](https://github.com/goingforbrooke/directory_summarizer/blob/eecbd75d891b4ae7b32ec113dd5af07e28ee3eae/.github/workflows/build_macos.yml#L42). I wish that I had the decision information to start with Create Release before I wandered through the other release Actions.
 
