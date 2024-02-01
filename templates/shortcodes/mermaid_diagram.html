@@ -2,13 +2,19 @@
     {% set config_title = "title: " ~ title %}
 {% endif %}
 
+{% if theme %}
+    {% set config_theme = "theme: " ~ theme %}
+{% else %}
+    {% set config_theme = "theme: dark" %}
+{% endif %}
+
 <pre class="mermaid">
     ---
     {% if title %}
     {{ config_title }}
     {% endif %}
     config:
-      theme: dark
+      {{ config_theme }}
     ---
     {{ body }}
 </pre>
