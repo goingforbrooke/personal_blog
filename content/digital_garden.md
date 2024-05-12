@@ -66,6 +66,10 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
 - web stuff
   - [mf website]https://motherfuckingwebsite.com)
     - thoughts on responsive website design
+- IDEs
+  - ideavim
+    - [available actions(https://gist.github.com/zchee/9c78f91cc5ad771c1f5d)
+
 
 
 > I've switch from Midjourney to ChatGPT for generating my header images. So far, I'm a little disappointed with how tame they are. They feel more design-by-committee rather than the zany and unorthodox monstrosities that sail out of Midjourney. For example, the image for this post looks more like a misplaced farmer's market than a library of ideas. I would've preferred something like [this](https://youtu.be/hLljd8pfiFg?si=5o0YAVc1DQGHZIXi).
