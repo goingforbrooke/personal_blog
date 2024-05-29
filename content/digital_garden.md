@@ -50,7 +50,7 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
     - [makeareadme.com](https://www.makeareadme.com)
 - IDEs
   - ideavim
-    - [available actions(https://gist.github.com/zchee/9c78f91cc5ad771c1f5d)
+    - [available actions](https://gist.github.com/zchee/9c78f91cc5ad771c1f5d)
     - [awesome `.ideavimrc`](https://www.cyberwizard.io/posts/the-ultimate-ideavim-setup/)
 - python
     - [Black](https://github.com/psf/black)
@@ -64,12 +64,12 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
     - [CLI recommendations](https://rust-cli-recommendations.sunshowers.io)
         - [clap subcommand structure](https://rust-cli-recommendations.sunshowers.io/handling-arguments.html) from [@rain](https://sunshowers.io)
     - documentation
+      - [common documentation section headers](https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/book/first-edition/documentation.html#writing-documentation-comments)
+      - [RFC 505: common documentation conventions](https://github.com/rust-lang/rfcs/blob/master/text/0505-api-comment-conventions.md)
       - [mdbook-mermaid](https://github.com/badboy/mdbook-mermaid)
         - add [Mermaid](https://mermaid.js.org) charts to MdBook pages
         - [example: build rustdoc, mdbook and deploy to GitHub Pages](https://github.com/nextest-rs/nextest/blob/nextest-runner-0.54.1/.github/workflows/docs.yml) in [@rain's](https://sunshowers.io) Nextest
         - [rustdoc book: how to write good documentation](https://doc.rust-lang.org/rustdoc/how-to-write-documentation.html)
-  - [common documentation section headers](https://web.mit.edu/rust-lang_v1.25/arch/amd64_ubuntu1404/share/doc/rust/html/book/first-edition/documentation.html#writing-documentation-comments)
-  - [RFC 505: common documentation conventions](https://github.com/rust-lang/rfcs/blob/master/text/0505-api-comment-conventions.md)
   - [`CARGO*` env vars](https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-crates)
   - [great XML library comparision](https://mainmatter.com/blog/2020/12/31/xml-and-rust/)
   - [Postel's Law](https://en.wikipedia.org/wiki/Robustness_principle)
@@ -78,7 +78,7 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
     - [yet-undocumented procedural macros](https://doc.rust-lang.org/nightly/reference/procedural-macros.html)
     - [procedural macro blog JetBrains blog post](https://blog.jetbrains.com/rust/2022/03/18/procedural-macros-under-the-hood-part-i/)
 - [starred GitHub projects](https://github.com/goingforbrooke?tab=stars)
-- terminal
+- terminal goodness
     - [Alacritty](https://github.com/alacritty/alacritty)
     - [Conquer of Completion](https://github.com/neoclide/coc.nvim)
     - [versioning dotfiles](https://www.atlassian.com/git/tutorials/dotfiles)
@@ -86,10 +86,10 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
     - [`fd`](https://github.com/sharkdp/fd)
     - [Neovim](https://github.com/neovim/neovim)
     - [powerlevel10k](https://github.com/romkatv/powerlevel10k)
-    - [ripgrep "`rg`"](https://github.com/BurntSushi/ripgrep)
+    - [ripgrep ("`rg`")](https://github.com/BurntSushi/ripgrep)
     - [zoxide](https://github.com/ajeetdsouza/zoxide)
 - web stuff
-  - [mf website]https://motherfuckingwebsite.com)
+  - [mf website](https://motherfuckingwebsite.com)
     - thoughts on responsive website design
 
 > I've switch from Midjourney to ChatGPT for generating my header images. So far, I'm a little disappointed with how tame they are. They feel more design-by-committee rather than the zany and unorthodox monstrosities that sail out of Midjourney. For example, the image for this post looks more like a misplaced farmer's market than a library of ideas. I would've preferred something like [this](https://youtu.be/hLljd8pfiFg?si=5o0YAVc1DQGHZIXi).
