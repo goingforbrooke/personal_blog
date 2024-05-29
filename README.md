@@ -101,6 +101,44 @@ cp sass/font-hack.scss sass/font-exo2.scss
 
 5. In `font-exo2.scss`, rename instances of `hack` to `exo2` and `Hack` to `Exo2`.
 
+6. In `head.html`, add a configuration option for an additional font.
+
+from:
+
+```tera
+{%- if config.extra.use_full_hack_font %}
+<link rel="stylesheet" href="{{ get_url(path="font-hack.css", trailing_slash=false) | safe }}">
+{% else %}
+<link rel="stylesheet" href="{{ get_url(path="font-hack-subset.css", trailing_slash=false) | safe }}">
+{% endif -%}
+```
+
+to:
+
+```tera
+{%- if config.extra.use_full_hack_font == "exo2" %}
+<link rel="stylesheet" href="{{ get_url(path="font-exo2.css", trailing_slash=false) | safe }}">
+{%- elif config.extra.use_full_hack_font %}
+<link rel="stylesheet" href="{{ get_url(path="font-hack.css", trailing_slash=false) | safe }}">
+{% else %}
+<link rel="stylesheet" href="{{ get_url(path="font-hack-subset.css", trailing_slash=false) | safe }}">
+{% endif -%}
+```
+
+7. In the blog's `config.toml` (*not* Terminimal's (template) `config.toml`), change config value.
+
+from:
+
+```text
+change use_full_hack_font = false
+```
+
+to:
+
+```text
+change use_full_hack_font = 'exo2'
+```
+
 ## Check Favicon Status
 
 https://realfavicongenerator.net/favicon_checker?protocol=http&site=www.goingforbrooke.com
