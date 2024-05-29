@@ -60,7 +60,7 @@ post_view_navigation_prompt = "Thanks for reading! Would you like to know more?"
 # Use full Hack character set, not just a subset.
 # Switch this to true if you need full unicode support.
 # Defaults to false.
-use_full_hack_font = false
+use_full_hack_font = 'exo2'
 
 favicon = "img/favicon.ico"
 favicon_mimetype = "image/x-icon"
