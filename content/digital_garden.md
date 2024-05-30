@@ -22,9 +22,13 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
 
 - blogs
   - [Armin Ronacher](https://lucumr.pocoo.org)
+    - Python's "Flask" library
   - [factorio](https://factorio.com/blog/)
+    - occasional C++ posts about code architecture and performance
   - [Kenneth Reitz](https://kennethreitz.org/essays)
+    - Python's "Requests" library
   - [Paul Graham](http://paulgraham.com/articles.html)
+    - startups
   - [Raph Levien](https://raphlinus.github.io)
     - Rust GUIs
     - Arcane graphics
