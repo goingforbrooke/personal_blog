@@ -62,8 +62,7 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
   - [Google Style Docstrings](https://sphinxcontrib-napoleon.readthedocs.io/en/latest/example_google.html)
 - Rust
   - [API guidelines](https://rust-lang.github.io/api-guidelines/flexibility.html)
-      - [examples should use `?`](https://rust-lang.github.io/api-guidelines/documentation.html#examples-use--not-try-not-unwrap-c-question-mark)
-  - [`CARGO*` env vars](https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-crates)
+      - [examples should use `?`](https://rust-lang.github.io/api-guidelines/documentation.html#examples-use--not-try-not-unwrap-c-question-mark) - [`CARGO*` env vars](https://doc.rust-lang.org/cargo/reference/environment-variables.html#environment-variables-cargo-sets-for-crates)
   - [areweguiyet.com](https://areweguiyet.com)
   - [cargo bundle](https://github.com/burtonageo/cargo-bundle)
   - [cargo edit](https://github.com/killercup/cargo-edit)
@@ -124,8 +123,10 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
     - Zsh configuration framework
   - [versioning dotfiles](https://www.atlassian.com/git/tutorials/dotfiles)
 - web stuff
+  - [favicons on all browsers](https://evilmartians.com/chronicles/how-to-favicon-in-2021-six-files-that-fit-most-needs)
   - [mf website](https://motherfuckingwebsite.com)
     - spicy thoughts on responsive website design 🌶️
+  - [`shortcut icon` for favicons isn't and never was a thing](https://mathiasbynens.be/notes/rel-shortcut-icon)
 
 > I've switched from Midjourney to ChatGPT for generating my header images. So far, I'm a little disappointed with how tame they are. They feel more design-by-committee rather than the zany and unorthodox monstrosities that sail out of Midjourney. For example, the image for this post looks more like a misplaced farmer's market than a library of ideas. I would've preferred something like [this](https://youtu.be/hLljd8pfiFg?si=5o0YAVc1DQGHZIXi).
 
