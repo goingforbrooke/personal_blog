@@ -62,5 +62,4 @@ post_view_navigation_prompt = "Thanks for reading! Would you like to know more?"
 # Defaults to false.
 use_full_hack_font = 'exo2'
 
-favicon = "img/favicon.png"
-favicon_mimetype = "image/x-icon"
+favicon = true
