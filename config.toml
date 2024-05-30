@@ -55,7 +55,7 @@ enable_post_view_navigation = true
 
 # The text shown at the bottom of a post,
 # before earlier/later post links.
-post_view_navigation_prompt = "Thanks for reading! Would you like to know more?"
+post_view_navigation_prompt = "Would you like to know more?"
 
 # Use full Hack character set, not just a subset.
 # Switch this to true if you need full unicode support.
