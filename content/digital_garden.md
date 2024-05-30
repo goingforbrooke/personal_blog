@@ -21,18 +21,114 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
 # Links
 
 - blogs
+  - [Aaron Turon](http://aturon.github.io)
+    - Rust development
+    - inactive
+  - [Alice Ryhl](https://ryhl.io)
+    - Rust Tokio
+    - inactive
+  - [Antoyo's Blog](https://blog.antoyo.xyz)
+    - GCC ahead-of-time codegen for rustc
   - [Armin Ronacher](https://lucumr.pocoo.org)
     - Python's "Flask" library
+  - [Baby Steps](https://smallcultfollowing.com/babysteps/)
+    - Rust language design
+  - [Chelsea Troy](https://chelseatroy.com)
+    - tech industry thoughts
+  - [Coding Horror](https://blog.codinghorror.com)
+    - tech culture
+    - development practices
+    - inactive
+  - [Computers are Bad](https://computer.rip)
+    - computer history
+  - [Dan Luu](http://danluu.com)
+    - development practices
+  - [Daw-Chih Liou](https://dawchihliou.github.io/articles)
+    - fullstack
+    - tests in Rust
+  - [dtolnay](https://docs.rs/dtolnay/latest/dtolnay/)
+    - Rust language design
+  - [Ductile Systems by "mgattozzi"](https://ductile.systems)
+    - Rust development
+    - Python development
+  - [epage](https://epage.github.io/blog/)
+    - Rust GUIs
+    - Rust Cargo
+    - inactive since 23-8-17
   - [factorio](https://factorio.com/blog/)
     - occasional C++ posts about code architecture and performance
+  - [fasterthanlime "Amos Wenger"](https://fasterthanli.me)
+    - Rust development
+  - [Guillaume Gomez](https://blog.guillaume-gomez.fr)
+    - rustdoc
+    - Rust sysinfo
+  - [Hoverbear](https://hoverbear.org/blog/)
+    - Rust development
+    - NixOS
+    - inactive since 23-7-19
+  - [Jamie Lawrence](https://jamie.ideasasylum.com)
+    - development in the workplace
+  - [Joel on Software](https://www.joelonsoftware.com)
+    - unicode
+    - inactive since 22-12-19
+  - [Julia Evans](https://jvns.ca/)
+    - Zines on everything inside the magic box
+  - [Kelly Shortridge](https://kellyshortridge.com/blog/posts/)
+    - Security Chaos Engineering
   - [Kenneth Reitz](https://kennethreitz.org/essays)
     - Python's "Requests" library
+  - [Khionu Sybiern](https://khionu.net/blog/)
+    - Rust moderation team
+    - inactive since 23-8-29
+  - [Luca Palmieri](https://www.lpalmieri.com)
+    - author of "Zero to Rust in Production"
+    - Rust CI/CD (such as Cargo Chef for building in Docker containers)
+    - Rust RESTful APIs
+    - Rust development
+  - [Llogiq](https://llogiq.github.io/)
+    - Rust development (most recently on Log Rocket's blog)
+  - [Mara Bos](https://blog.m-ou.se)
+    - Rust development
+    - Author of "Rust Atomics and Locks"
+    - inactive since 23-12-5
+  - [matklad](https://matklad.github.io)
+    - development practices
+  - [moohax](https://moohax.substack.com)
+    - AI for offensive security
+  - [Ohrun](https://blog.orhun.dev/open-source-funding-with-ratatui/)
+    - Ratatui (Rust TUI library)
+  - [JeanHeyd Meneide "The Pasture"](https://thephd.dev)
+    - C
+    - Rust Compile-Time Reflection
   - [Paul Graham](http://paulgraham.com/articles.html)
     - startups
+  - [rachaelbythebay](http://rachelbythebay.com/w/)
+    - C++
+    - blog administration
   - [Raph Levien](https://raphlinus.github.io)
     - Rust GUIs
     - Arcane graphics
+  - [Read Rust](https://readrust.net/all)
+    - curated list of Rust blog posts
+    - inactive since 23-10-15
+  - [S🦀sha](https://scrabsha.github.io)
+    - Rust Cargo
+  - [seanmonstar](https://seanmonstar.com)
+    - Rust Hyper
+  - [Sophia June Turner](https://www.sophiajt.com)
+    - Rust
+    - TypeScript
+    - Nushell
+  - [Sunfishcode/Dan Gohman](https://blog.sunfishcode.online)
+    - Rust development
+  - [yaah](https://yaah.dev)
+    - Rust Eyre
+    - Rust language design
+    - inactive since 23-6-15
+  - [Xander Dunn](https://xander.ai)
+    - Rust for AI
 - books
+  - [Hackers and Painters by Paul Graham](https://paulgraham.com/hackpaint.html)
   - [Make Time by Jake Knapp and John Zeratsky (2018)](https://maketime.blog)
   - [Rust Atomics and Locks by Mara Bos (2023)](https://marabos.nl/atomics/)
   - [Staff Engineer: Leadership Beyond the Management Track (2021)](https://staffeng.com/book)
