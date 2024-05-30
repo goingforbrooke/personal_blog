@@ -25,6 +25,9 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
   - [factorio](https://factorio.com/blog/)
   - [Kenneth Reitz](https://kennethreitz.org/essays)
   - [Paul Graham](http://paulgraham.com/articles.html)
+  - [Raph Levien](https://raphlinus.github.io)
+    - Rust GUIs
+    - Arcane graphics
 - books
   - [Make Time by Jake Knapp and John Zeratsky (2018)](https://maketime.blog)
   - [Rust Atomics and Locks by Mara Bos (2023)](https://marabos.nl/atomics/)
