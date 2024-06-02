@@ -26,7 +26,7 @@ I used to solve this problem with [Flask](https://github.com/pallets/flask)'s HT
 
 1. 📐It should create a consistent experience on Windows, macOS, and Ubuntu without platform-specific changes. WASM's a bonus because it offers the possibility of converting my desktop app to a web app in the future.
 
-2. 🦀 I prefer pure Rust solutions because they simplify compilation and don't inherit the issues of libraries written in other languages. Not to mention it's kinda romantic having top-to-bottom Rust. JavaScript will viewed with great suspicion because I'm sick of it.
+2. 🦀 I prefer pure Rust solutions because they simplify compilation and don't inherit the issues of libraries written in other languages. Not to mention it's kinda romantic having top-to-bottom Rust. JavaScript will be viewed with great suspicion because I'm sick of it.
 
 3. ✨Above all, UI changes should be trivial so I can focus on what's happening behind the scenes. 
 
@@ -61,7 +61,7 @@ Reading the code was fun, but it made Iced the most time-consuming duplication o
 
 > The [book](https://book.iced.rs/) is completely empty currently, so if you want to learn, then you have to read a bunch of code from the examples, which, most of them aren't too simple. -- [Héctor Ramón](https://github.com/hecrj)
 
-Iced was the best-looking library that I explored. The default shapes and colors for buttons and panes are simple and visually pleasing without intruding on the style of Windows, *nix, or macOS. Different enough to be distinct and simple enough to be friendly, the defualt look of Iced made my project look sellable. Any library can be made to look enough like anything, but the prototypes we show to customers and investors often sport a good bit of `create-react-app`.
+Iced was the best-looking library that I explored. The default shapes and colors for buttons and panes are simple and visually pleasing without intruding on the style of Windows, *nix, or macOS. Different enough to be distinct and simple enough to be friendly, the default look of Iced made my project look sellable. Any library can be made to look enough like anything, but the prototypes we show to customers and investors often sport a good bit of `create-react-app`.
 
 Using layouts to precisely arrange elements was awesome, and not every library guarantees that ability. I expect I'll miss it dearly as the number of UI elements grows with the project.
 
@@ -93,7 +93,7 @@ The Sveltekit intro tracks with the unparalleled [docs](https://tauri.app/v1/gui
 
 Developer prioritization culminates in an inspiring CI ecosystem with deployment capabilities approaching that of [goreleaser](https://github.com/goreleaser/goreleaser). My [CI pipelines](@/action_universal.md) borrow heavily from Tauri's example.
 
-<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><p lang="en" dir="ltr">4 years ago today, Denjell &amp; Lucas, the cofounders of Tauri, wrote C++ for the last time and decided that <a href="https://twitter.com/rustlang?ref_src=twsrc%5Etfw">@rustlang</a> would be the foundation for what today is the most popular of all <a href="https://twitter.com/hashtag/OSS?src=hash&amp;ref_src=twsrc%5Etfw">#OSS</a> projects of its age on <a href="https://twitter.com/github?ref_src=twsrc%5Etfw">@github</a> written in Rust:<a href="https://t.co/ZhrGKOJHAd">https://t.co/ZhrGKOJHAd</a> <a href="https://t.co/VsyMRwRXmu">pic.twitter.com/VsyMRwRXmu</a></p>&mdash; Tauri (@TauriApps) <a href="https://twitter.com/TauriApps/status/1660938334884036608?ref_src=twsrc%5Etfw">May 23, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><p lang="en" dir="ltr">4 years ago today, Denjell &amp; Lucas, the co-founders of Tauri, wrote C++ for the last time and decided that <a href="https://twitter.com/rustlang?ref_src=twsrc%5Etfw">@rustlang</a> would be the foundation for what today is the most popular of all <a href="https://twitter.com/hashtag/OSS?src=hash&amp;ref_src=twsrc%5Etfw">#OSS</a> projects of its age on <a href="https://twitter.com/github?ref_src=twsrc%5Etfw">@github</a> written in Rust:<a href="https://t.co/ZhrGKOJHAd">https://t.co/ZhrGKOJHAd</a> <a href="https://t.co/VsyMRwRXmu">pic.twitter.com/VsyMRwRXmu</a></p>&mdash; Tauri (@TauriApps) <a href="https://twitter.com/TauriApps/status/1660938334884036608?ref_src=twsrc%5Etfw">May 23, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
 
 
 My biggest issue with Tauri was how much it slowed filesystem access. Compared to [egui](#egui), it took far longer to count every file on my machine, probably due to the [file access whitelist](https://tauri.app/v1/api/js/fs/). It's an ambitious standard for security that I'd like to see in other projects, but I really want my Rust code to run unimpeded.
@@ -156,7 +156,7 @@ The benefit of barbarous rendering is a crisp response that few have touched sin
 
 Here's how [my project's](https://github.com/goingforbrooke/folsum/tree/main) looking with egui.
 
-> Lowkey the "Summarize" button doesn't work in WASM builds because I haven't dummy files (yet).
+> Lowkey the "Summarize" button doesn't work in WASM builds because I haven't added dummy files (yet).
 
 {{ embedpage(url="https://www.goingforbrooke.com/folsum/") }}
 
@@ -172,7 +172,7 @@ The [README](https://github.com/emilk/egui/blob/master/README.md) comprises most
          alt="Screenshot of a simple wifi scanning application with each network's name, strength, channel, and security.",
          style="border-radius: 8px;") }}
 
-[Dioxus](https://github.com/DioxusLabs/dioxus) is gaining popularity with its React-style component update model. I haven't tried it yet because I'm weary of React's labrinthine update propagations.
+[Dioxus](https://github.com/DioxusLabs/dioxus) is gaining popularity with its React-style component update model. I haven't tried it yet because I'm weary of React's labyrinthine update propagations.
 
 The project has incredible documentation and a thriving community that makes me want to procrastinate in GUIland even longer.
 
@@ -194,7 +194,7 @@ It offers a lot more flashy bits than what's on display here, and the [ironfish 
 
 {{ embedpage(url="https://makepad.nl/makepad/examples/simple/src/index.html") }}
 
-The trouble here is that it's not produciton ready (yet).
+The trouble here is that it's not production ready (yet).
 
 > "not production ready" [@JanPaul123](https://x.com/JanPaul123?s=20)
 
