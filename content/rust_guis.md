@@ -166,6 +166,8 @@ Egui's incredibly portable, happily deploying to Windows and MacOS with no code 
 
 The [README](https://github.com/emilk/egui/blob/master/README.md) comprises most of the docs, though I needed little help beyond the [starter template](https://github.com/emilk/eframe_template/) and a few examples.
 
+> 24-6-2 Update: There's now a [suggested fix](https://docs.rs/egui/0.27.2/egui/index.html#my-text-is-blurry) for fuzzy text, though I haven't tried it (yet).
+
 # Honorable Mention: Dioxus
 
 {{ image(src="dioxus_wifi_scanner.png",
