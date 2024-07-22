@@ -7,9 +7,9 @@ theme = "terminimal"
 compile_sass = true
 
 # Generate an atom feed for blog posts.
-generate_feed = true
+generate_feeds = true
 # Use ATOM instead of RSS for more features and less backwards compatibility.
-feed_filename = "atom.xml"
+feed_filenames = ["atom.xml"]
 
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = true
