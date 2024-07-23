@@ -1,0 +1,229 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom" xml:lang="en">
+    <title></title>
+    <link rel="self" type="application/atom+xml" href="https://www.goingforbrooke.com/personal_blog/atom.xml"/>
+    <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/"/>
+    <generator uri="https://www.getzola.org/">Zola</generator>
+    <updated>2024-01-23T00:00:00+00:00</updated>
+    <id>https://www.goingforbrooke.com/personal_blog/atom.xml</id>
+    <entry xml:lang="en">
+        <title>Why Rust</title>
+        <published>2024-01-23T00:00:00+00:00</published>
+        <updated>2024-01-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/why-rust/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/why-rust/</id>
+        
+        <summary type="html">&lt;p&gt;Why did I choose a nascent, apocryphal language to &lt;em&gt;do the thing&lt;&#x2F;em&gt;?&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Rusty Bespoke CI&#x2F;CD</title>
+        <published>2023-12-21T00:00:00+00:00</published>
+        <updated>2023-12-21T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/cicd-frameworks/</id>
+        
+        <summary type="html">&lt;p&gt;Rusty options for CI&#x2F;CD pipelines and why Xtask is best for complex pipelines.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Simple Rust GUIs for Desktop Apps</title>
+        <published>2023-11-28T00:00:00+00:00</published>
+        <updated>2023-11-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/rust-guis/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/rust-guis/</id>
+        
+        <summary type="html">&lt;p&gt;A survey of simple Rust GUIs for desktop applications. &lt;strong&gt;Spoiler:&lt;&#x2F;strong&gt; &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;emilk&#x2F;egui&quot;&gt;egui&lt;&#x2F;a&gt;&#x27;s my favorite.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Un-Practices in GitHub Actions</title>
+        <published>2023-10-23T00:00:00+00:00</published>
+        <updated>2023-10-23T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/actions-unpractices/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/actions-unpractices/</id>
+        
+        <summary type="html">&lt;p&gt;GitHub Actions has little the way of best practices, but here are some strategies that &lt;em&gt;don&#x27;t&lt;&#x2F;em&gt; work.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>My Digital Garden</title>
+        <published>2023-09-28T00:00:00+00:00</published>
+        <updated>2023-09-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/digital-garden/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/digital-garden/</id>
+        
+        <summary type="html">&lt;p&gt;Organized lists of stuff that I think is cool.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Versioning the Version: Branch-Bumping Cargo.toml</title>
+        <published>2023-08-20T00:00:00+00:00</published>
+        <updated>2023-08-20T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/versioning-version/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/versioning-version/</id>
+        
+        <summary type="html">&lt;p&gt;Version bumping’s the gateway to a smooth CI&#x2F;CD process and &lt;a href=&quot;https:&#x2F;&#x2F;github.com&#x2F;goingforbrooke&#x2F;folsum#branch-naming-conventions&quot;&gt;branch naming conventions&lt;&#x2F;a&gt; make it happen behind the scenes.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Build and Notarize Universal Rust Binaries for MacOS</title>
+        <published>2023-07-28T00:00:00+00:00</published>
+        <updated>2023-07-28T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/action-universal/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/action-universal/</id>
+        
+        <summary type="html">&lt;p&gt;Use a Github Action workflow to build &quot;universal&quot; Rust binaries that work for both MacOS chip architectures.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>My GUIs Suck and that&#x27;s Okay</title>
+        <published>2023-06-13T00:00:00+00:00</published>
+        <updated>2023-06-13T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/crappy-guis/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/crappy-guis/</id>
+        
+        <summary type="html">&lt;p&gt;I&#x27;ll be the first to admit that my GUIs don&#x27;t look great and the second to admit it&#x27;s okay. There&#x27;s an undue expectation that the simplest application has to have a snazzy frontend (probably written in ReactJS) or it&#x27;s not legitimate software. My resume&#x27;s littered with pandering to this sentiment-- so much development time lost to visualizing stakeholder value so my manager had a dashboard to know what we were up to 🤢.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Go: Get Off My Lawn</title>
+        <published>2023-06-08T00:00:00+00:00</published>
+        <updated>2023-06-08T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/golang-custom-install/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/golang-custom-install/</id>
+        
+        <summary type="html">&lt;p&gt;So, this gopher came to my &lt;code&gt;~&lt;&#x2F;code&gt;, s*** on my lawn, and built a fence around it, as if it was theirs. There&#x27;s gotta be a better way to bring home a (Go)pher.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Reflections on Github Actions</title>
+        <published>2023-06-01T00:00:00+00:00</published>
+        <updated>2023-06-01T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/actions-reflections/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/actions-reflections/</id>
+        
+        <summary type="html">&lt;p&gt;GitHub Actions came onto the scene four years ago with the promise of free Continuous Integration (CI) for public repos. I was eager to use it, but quickly found that the product was too young. Buggy UI elements and the dearth of community workflows made it more of a time sink than it was worth, so I left it with the expectation that the issues would be solved.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+    <entry xml:lang="en">
+        <title>Kill the Mad Scientist! Non-Jekyll Github Pages SSG</title>
+        <published>2023-05-10T00:00:00+00:00</published>
+        <updated>2023-05-10T00:00:00+00:00</updated>
+        
+        <author>
+          <name>
+            
+              Unknown
+            
+          </name>
+        </author>
+        
+        <link rel="alternate" type="text/html" href="https://www.goingforbrooke.com/personal_blog/pages-ssg/"/>
+        <id>https://www.goingforbrooke.com/personal_blog/pages-ssg/</id>
+        
+        <summary type="html">&lt;p&gt;My first foray into Github Pages seemed like a warmup. Given how strongly Github &lt;a href=&quot;https:&#x2F;&#x2F;web.archive.org&#x2F;web&#x2F;20230509160818&#x2F;https:&#x2F;&#x2F;pages.github.com&#x2F;&quot;&gt;touts&lt;&#x2F;a&gt; its Jekyll integrations, I assumed that the process would painless. Ruby proved me wrong.&lt;&#x2F;p&gt;
+</summary>
+        
+    </entry>
+</feed>
