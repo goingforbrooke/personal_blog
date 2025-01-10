@@ -63,3 +63,5 @@ post_view_navigation_prompt = "Would you like to know more?"
 use_full_hack_font = 'exo2'
 
 favicon = true
+
+default_language = 'English'
