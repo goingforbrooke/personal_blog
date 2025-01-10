@@ -9,11 +9,13 @@ on:
 jobs:
   # Build static file with Zola's preferred action.
   build:
-    name: Build with Zola Action
+    environment:
+      name: Build with Zola Action and Deploy with GitHub's "static" Starter Workflow
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/main'
     steps:
-      - name: checkout
+      - name: Checkout
         uses: actions/checkout@v4
       - name: Build (and don't deploy)
         uses: shalzz/zola-deploy-action@master
@@ -22,21 +24,13 @@ jobs:
           BUILD_ONLY: true
           # Or if publishing to the same repo, use the automatic token
           TOKEN: ${{ secrets.TOKEN }}
-  # Deploy static files with GitHub's "static" starter workflow. https://github.com/actions/starter-workflows/blob/main/pages/static.yml
-  deploy:
-    environment:
-      name: Deploy to GitHub Pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
+      # Deploy static files with GitHub's "static" starter workflow. https://github.com/actions/starter-workflows/blob/main/pages/static.yml
       - name: Setup Pages
         uses: actions/configure-pages@v5
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          # Upload entire repository
+          # Upload contents of Zola's output directory.
           path: 'public/'
       - name: Deploy to GitHub Pages
         id: deployment
