@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Un-Practices in GitHub Actions | </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/style.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/turquoise.css">
+
+        <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/background_blue.css">
+    
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-exo2.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-hack.css">
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Un-Practices in GitHub Actions | ">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.goingforbrooke.com/personal_blog/actions-unpractices/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Un-Practices in GitHub Actions | ">
+    <meta property="twitter:domain" content="www.goingforbrooke.com&#x2F;personal_blog&#x2F;">
+    <meta property="twitter:url" content="https://www.goingforbrooke.com/personal_blog/actions-unpractices/">
+
+        <link rel="alternate" type="application/atom+xml" title=" Atom Feed" href="https://www.goingforbrooke.com/personal_blog/atom.xml" />
+    
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+        <link rel="manifest" href="/manifest.webmanifest">
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://www.goingforbrooke.com" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            goingforbrooke.com
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://www.goingforbrooke.com/personal_blog/actions-unpractices/">Un-Practices in GitHub Actions</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-10-23
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/cicd/">#cicd</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/github-actions/">#github_actions</a></span>
+    
+
+        <div class="post-content">
+            <p>GitHub Actions has little the way of best practices, but here are some strategies that <em>don't</em> work.</p>
+<span id="continue-reading"></span><h1 id="issue"><a class="zola-anchor" href="#issue" aria-label="Anchor link for: issue">Issue</a></h1>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/grinding_cogs.png" alt="Metal cogs grinding against each other with debris and sparks being thrown around" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>There's no "right" way to do develop something, but some of my favorite languages and libraries declare their ethos up front, that I might build with their philosophy in mind.</p>
+<blockquote>
+<p>The <a href="https://peps.python.org/pep-0020/">Zen of Python</a> and <a href="https://go-proverbs.github.io">Go Proverbs</a> come to mind.</p>
+</blockquote>
+<p>While GitHub has guides for <a href="https://docs.github.com/en/actions/guides">usage</a> and <a href="https://docs.github.com/en/actions/security-guides/security-hardening-for-github-actions">security hardening,</a> I haven't found documentation on best practices. In the mean time, here some are some strategies worth avoiding.</p>
+<ol>
+<li><a href="https://www.goingforbrooke.com/personal_blog/actions-unpractices/#step-granularity">Step Granularity</a></li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/actions-unpractices/#yaml-control-flow">YAML Control Flow</a></li>
+</ol>
+<h2 id="step-granularity"><a class="zola-anchor" href="#step-granularity" aria-label="Anchor link for: step-granularity">Step Granularity</a></h2>
+<p>I tried <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">separating concerns</a> by defining each thing-to-do in a discrete <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idsteps">step</a>. I hoped that this would make the CI/CD pipeline easier to debug and enhance, but found the opposite to be true.</p>
+<p>In my code, I like to separate the decision about what to do from actually doing the thing. That way, if one of something fails, it's easier to find the fault. That means that we need to store the decision in a variable and use that variable in the following step. Variables in Actions don't persist between steps unless you load them into <code>$GITHUB_OUTPUT</code>, making shell the lingua franca of Actions. Copping out to Python could help here, but I'd hate to pay for pulling an interpreter into every CI/CD invocation. So, we regress to <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idstepsrun">run</a>ning shell commands and adopt the drawbacks of both shell and Actions.</p>
+<p>For example, I wanted to fix a bug in <a href="https://github.com/goingforbrooke/folsum">FolSum’s</a> CSV export where column headers were labelled incorrectly. The current version (on the <code>main</code> branch) was <code>v2.1.0</code>. I branched off of the development branch with <code>git sw dev; git swc fix/export_headers</code>, fixed the bug, and merged the fix back into the development branch with <code>git sw dev; git merge —no-ff fix/export_headers</code>. Normally, the pipeline would've incremented the minor version from <code>v2.1.0</code> to <code>v2.2.0</code>, but I wanted it to change from <code>v2.1.0</code> to <code>v2.1.1</code>, implying that the release change was a bug fix, not a feature.</p>
+<p>To accomplish this, I needed a conditional step that uses the name of the last branch that was merged to <code>dev</code>. If it starts with <code>fix/</code>, then the patch version would increment. Otherwise, the minor version would increment. It begins with getting the name of the last branch merged to <code>dev</code> (<em>thanks ChatGPT</em>).</p>
+<pre data-lang="bash" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-bash "><code class="language-bash" data-lang="bash"><span>$ user@host: git log dev --merges --pretty=format:</span><span style="color:#d69d85;">&quot;%s&quot; </span><span style="color:#569cd6;">| </span><span>sed -n </span><span style="color:#d69d85;">&#39;s/^Merge branch \&#39;</span><span style="color:#e3bbab;">\&#39;</span><span style="color:#d69d85;">&#39;\(.*\)&#39;</span><span style="color:#e3bbab;">\&#39;</span><span style="color:#d69d85;">&#39; into dev$/\1/p&#39; </span><span style="color:#569cd6;">| </span><span>head -n 1
+</span></code></pre>
+<p>Then I needed to use this branch name to conditionally change the version. To accomplish this, I could follow ChatGPT’s advice and do it in one <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobsjob_idsteps">step</a>.</p>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>- </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Increment minor version in Cargo.toml if on main branch</span><span>
+</span><span>  </span><span style="color:#608b4e;"># Gate version bumping to only happen on main branch.
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">if</span><span>: </span><span style="background-color:#282828;color:#d69d85;">github.ref == &#39;refs/heads/main&#39;</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">run</span><span>: </span><span style="color:#569cd6;">|
+</span><span style="background-color:#282828;color:#d69d85;">    # Get the name of the last merged branch into the `dev` branch.
+</span><span style="background-color:#282828;color:#d69d85;">    LAST_MERGED_BRANCH=$(git log --merges -n 1 --pretty=format:&quot;%s&quot; dev | sed -n &#39;s/^.*Merge branch &#39;\&#39;&#39;\([^&#39;\&#39;&#39;]*\)&#39;\&#39;&#39; into dev.*/\1/p&#39;)
+</span><span style="background-color:#282828;color:#d69d85;">    
+</span><span style="background-color:#282828;color:#d69d85;">    # Check if the branch name starts with &quot;fix/&quot;.
+</span><span style="background-color:#282828;color:#d69d85;">    if [[ $LAST_MERGED_BRANCH == fix/* ]]; then
+</span><span style="background-color:#282828;color:#d69d85;">      # If branch starts with &quot;fix/&quot;, then increment the patch version.
+</span><span style="background-color:#282828;color:#d69d85;">      cargo set-version --bump patch
+</span><span style="background-color:#282828;color:#d69d85;">    else
+</span><span style="background-color:#282828;color:#d69d85;">      # Otherwise, increment the minor version.
+</span><span style="background-color:#282828;color:#d69d85;">      cargo set-version --bump minor
+</span><span style="background-color:#282828;color:#d69d85;">    fi
+</span></code></pre>
+<p>The trouble here is that <code>run</code> combines two discrete tasks:</p>
+<ol>
+<li>Getting the name of last branch that merged to <code>dev</code></li>
+<li>Using the name of the last branch merged to <code>dev</code> to increment the minor/patch version.</li>
+</ol>
+<p>Each step could fail, so I’d like to see a green check mark and the output of each step when I’m debugging issues. Otherwise, it’s just a Bash script that I can’t debug locally.</p>
+<blockquote>
+<p>It might be possible to speed up the debugging loop by running Actions locally with <a href="https://github.com/nektos/act"><code>act</code></a> or <a href="https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners">self-hosted runners</a>. I tried <code>act</code> for a bit, but gave up after running into compatibility issues with macOS or M1 chips-- I'm not sure which. I haven't tried self-hosted runners, but my initial findings suggested that they're not capble of building universal macOS binaries.</p>
+</blockquote>
+<p>Getting the merged branch name in a discrete step means that I need to make it available to the next step with <a href="https://docs.github.com/en/actions/using-jobs/defining-outputs-for-jobs">outputs</a>.</p>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>- </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Get current SemVer version from Cargo.toml</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">id</span><span>: </span><span style="background-color:#282828;color:#d69d85;">get_current_semver</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">run</span><span>: </span><span style="background-color:#282828;color:#d69d85;">echo &quot;semver=v$(cargo metadata --format-version 1 | jq -r &#39;.packages | .[] | select(.name==&quot;${{ steps.get_repo_name.outputs.repo_name }}&quot;) | .version&#39;)&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;</span><span>
+</span></code></pre>
+<p>The key piece here is <code>echo “🏷️=$(🪄)" &gt;&gt; "$GITHUB_OUTPUT”</code></p>
+<ul>
+<li>🪄 extracts the <code>version</code> from <code>Cargo.toml</code></li>
+<li>🏷️ is accessible in later steps via <code>”${{ steps.👟.outputs.🏷️ }}”</code>.</li>
+<li>👟 is the name of the step set by <code>id</code>, which is <code>get_current_semver</code> in the snippet above.</li>
+</ul>
+<blockquote>
+<p>The <code>v</code> prefix is also removed.</p>
+</blockquote>
+<p>The <code>version</code> extracted from <code>Cargo.toml</code> is later accessed with <code>steps.get_current_semver.outputs.semver</code> in the <code>Commit minor version bump</code> step.</p>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>- </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Commit minor version bump</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">uses</span><span>: </span><span style="background-color:#282828;color:#d69d85;">stefanzweifel/git-auto-commit-action@v4</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">with</span><span>:
+</span><span>    </span><span style="background-color:#282828;color:#569cd6;">file_pattern</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Cargo.toml</span><span>
+</span><span>    </span><span style="background-color:#282828;color:#569cd6;">commit_message</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Increment minor version from ${{ steps.get_current_semver.outputs.semver }} to ${{ steps.get_bumped_semver.outputs.semver }}</span><span>
+</span></code></pre>
+<p>This feels like a needlessly complicated <code>export</code>, which, applied to this issue, looks like this.</p>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>- </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Get the last branch that was merged into the `dev` branch</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">id</span><span>: </span><span style="background-color:#282828;color:#d69d85;">get_last_dev_merge</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">run</span><span>: </span><span style="background-color:#282828;color:#d69d85;">echo &quot;branch_name=$(git log dev --merges --pretty=format:&quot;%s&quot; | sed -n &#39;s/^Merge branch \&#39;\&#39;&#39;\(.*\)&#39;\&#39;&#39; into dev$/\1/p&#39; | head -n 1)&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;</span><span>
+</span><span>- </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Decide whether to bump the minor or patch version</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">id</span><span>: </span><span style="background-color:#282828;color:#d69d85;">decide_bump_type</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">run</span><span>: </span><span style="color:#569cd6;">| 
+</span><span style="background-color:#282828;color:#d69d85;">    # If the last branch merged with `dev` starts with &quot;fix/&quot;...
+</span><span style="background-color:#282828;color:#d69d85;">    if [[ ${{ steps.get_last_dev_merge.outputs.branch_name }} == fix/* ]]; then
+</span><span style="background-color:#282828;color:#d69d85;">      # ... then increment the patch version.
+</span><span style="background-color:#282828;color:#d69d85;">      echo “bump_type=patch&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;
+</span><span style="background-color:#282828;color:#d69d85;">    else
+</span><span style="background-color:#282828;color:#d69d85;">      # Otherwise, assume that the minor version needs incrementation.
+</span><span style="background-color:#282828;color:#d69d85;">      echo “bump_type=minor&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;
+</span><span style="background-color:#282828;color:#d69d85;">    fi
+</span></code></pre>
+<p>Adding this change took an inordinate amount of time. With descriptive step names, I quickly found the step that needed to be modified, but needed to re-read the rest of the pipeline in order to understand the implications of this change. Debugging shell code's annoying enough on my local machine, but doing it through a web browser with spin-up delays made it much worse. Despite the work that it took to divide the original step, this code block's no easier to debug or enhance.</p>
+<h2 id="yaml-control-flow"><a class="zola-anchor" href="#yaml-control-flow" aria-label="Anchor link for: yaml-control-flow">YAML Control Flow</a></h2>
+<p>These shortcomings are exacerbated by YAML flow control, which adds a behavioral layer that's implicit rather than explicit.</p>
+<p>For example, the project uses branch push triggers to kick off the build process. Different branch prefixes <a href="https://www.goingforbrooke.com/personal_blog/versioning-version/">trigger different sets of tasks</a>, but without implicit flow control, it's hard to keep these tasks from colliding. Branches that don’t match <code>feat/*</code> or <code>fix/*</code> should trigger a minor version bump while <code>cicd/*</code> branches should <em>act</em> like they're doing a minor version bump without actually doing so. They <a href="https://github.com/goingforbrooke/folsum/blob/645604c6ea87394f0ae4bf6c224e3570b8ed04c0/.github/workflows/build_macos.yml#L6">want to run on each commit</a> and need to be reigned in by a smattering of <code>if</code> conditionals.</p>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="background-color:#282828;color:#569cd6;">if</span><span>: </span><span style="background-color:#282828;color:#d69d85;">github.ref == &#39;refs/heads/main&#39; || startsWith(github.ref, &#39;refs/heads/cicd&#39;)</span><span>
+</span></code></pre>
+<p>I'm not thrilled with having these scattered about my code, but YAML doesn't equip us with <code>if</code>/<code>case</code>/<code>match</code> statements. This makes changes difficult, requiring me to re-learn my pipeline's quirks each time. I pay double for mistakes because I can’t run things locally to test them, not to mention the annoyance of tabbing over to my browser to hit reload on-that-thing-that-just-might-work-this-time.</p>
+<p>I considered separating these decisions into <a href="https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#jobs">jobs</a> so I could debug with snazzy <a href="https://docs.github.com/en/actions/monitoring-and-troubleshooting-workflows/using-the-visualization-graph">visualization graphs</a>. That would significantly increase the complexity of the pipeline by deepening into vendor lock-in, making more YAML whitespace issues, and pulling more of my debugging workflow into the browser. In private repos, these mistakes cost money.</p>
+<h1 id="concluding-thoughts-clapper"><a class="zola-anchor" href="#concluding-thoughts-clapper" aria-label="Anchor link for: concluding-thoughts-clapper">Concluding Thoughts 🎬</a></h1>
+<p>If I want to run locally and have control flow logic, then I should use a proper programming language to run shell commands. When I started building this pipeline, I estimated that I could build 80% of the functionality in 20 hours with a time-ROI horizon of two months. With more than 80 hours of CI/CD fiddling to reach the 80% mark, I wish that I had taken a different route.</p>
+<p>I expected that GitHub Actions would allow me to define a flexible build pipeline, but what I got was a Bash wrapper that runs on someone else's machine. Building out shell commands in another language (such as Python) seems wasteful, but the money lost on pulling in an interpreter would've been miniscule compared to the cost of the time that was lost. If I could go back and do it again, I'd cram as much as possible into one Python-fuelled step that I can debug and enhance locally.</p>
+
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Would you like to know more?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://www.goingforbrooke.com/personal_blog/digital-garden/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">My Digital Garden</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/">
+                                <span class="button__text">Simple Rust GUIs for Desktop Apps</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Brooke Deuson</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep">:: </span>
+                        Theme: <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a> by pawroman
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HD5RZH5144"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HD5RZH5144');
+</script>
+
+</html>

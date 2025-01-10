@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Simple Rust GUIs for Desktop Apps | </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/style.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/turquoise.css">
+
+        <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/background_blue.css">
+    
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-exo2.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-hack.css">
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Simple Rust GUIs for Desktop Apps | ">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.goingforbrooke.com/personal_blog/rust-guis/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Simple Rust GUIs for Desktop Apps | ">
+    <meta property="twitter:domain" content="www.goingforbrooke.com&#x2F;personal_blog&#x2F;">
+    <meta property="twitter:url" content="https://www.goingforbrooke.com/personal_blog/rust-guis/">
+
+        <link rel="alternate" type="application/atom+xml" title=" Atom Feed" href="https://www.goingforbrooke.com/personal_blog/atom.xml" />
+    
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+        <link rel="manifest" href="/manifest.webmanifest">
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://www.goingforbrooke.com" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            goingforbrooke.com
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/">Simple Rust GUIs for Desktop Apps</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-11-28
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/gui/">#GUI</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/rust/">#rust</a></span>
+    
+
+        <div class="post-content">
+            <p>A survey of simple Rust GUIs for desktop applications. <strong>Spoiler:</strong> <a href="https://github.com/emilk/egui">egui</a>'s my favorite.</p>
+<span id="continue-reading"></span>
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/raclette_sandwich.png" alt="Gooey raclette cheese oozing out of a white bread sandwich" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<h1 id="issue"><a class="zola-anchor" href="#issue" aria-label="Anchor link for: issue">Issue</a></h1>
+<p>Without a GUI, non-technical users can't use my software and give me feedback on application logic. That impedes the feedback loop necessary to improve my product.</p>
+<h1 id="motivation"><a class="zola-anchor" href="#motivation" aria-label="Anchor link for: motivation">Motivation</a></h1>
+<p>I used to solve this problem with <a href="https://github.com/pallets/flask">Flask</a>'s HTML templating because it can be easily replaced with a ReactJS frontend as the project grows. In Rust, I'd like a desktop equivalent to the simple GUIs that other systems languages enjoy.</p>
+<h1 id="goals"><a class="zola-anchor" href="#goals" aria-label="Anchor link for: goals">Goals</a></h1>
+<ol>
+<li>
+<p>📐It should create a consistent experience on Windows, macOS, and Ubuntu without platform-specific changes. WASM's a bonus because it offers the possibility of converting my desktop app to a web app in the future.</p>
+</li>
+<li>
+<p>🦀 I prefer pure Rust solutions because they simplify compilation and don't inherit the issues of libraries written in other languages. Not to mention it's kinda romantic having top-to-bottom Rust. JavaScript will be viewed with great suspicion because I'm sick of it.</p>
+</li>
+<li>
+<p>✨Above all, UI changes should be trivial so I can focus on what's happening behind the scenes.</p>
+</li>
+</ol>
+<h1 id="non-goals"><a class="zola-anchor" href="#non-goals" aria-label="Anchor link for: non-goals">Non-Goals</a></h1>
+<ol>
+<li>
+<p>It <a href="https://www.goingforbrooke.com/personal_blog/crappy-guis/">doesn't need to be beautiful</a> because I'm willing to sacrifice much on the altar of simplicity.</p>
+</li>
+<li>
+<p>Web apps don't qualify because they require writing a second interface-- the RESTful API. Each visual change requires code changes in two places, which takes time away from working on core logic.</p>
+</li>
+</ol>
+<h1 id="table-of-contents"><a class="zola-anchor" href="#table-of-contents" aria-label="Anchor link for: table-of-contents">Table of Contents</a></h1>
+<ul>
+<li><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#iced">🧊Iced: Elm-esque retained mode in async hell</a></li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#tauri">🎁Tauri: Super wrapper for the ages</a></li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#egui">💖egui: Simple, portable, and fun</a></li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#honorable-mention-dioxus">⚛️Dioxus</a></li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#honorable-mention-xilem">🌳Xilem</a></li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#honorable-mention-makepad">🗒️Makepad</a></li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#honorable-mention-slint">🛵Slint</a></li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#additional-material">📚Additional Material</a></li>
+</ul>
+<h1 id="iced"><a class="zola-anchor" href="#iced" aria-label="Anchor link for: iced">Iced</a></h1>
+<p><a href="https://github.com/iced-rs/iced">Iced</a> offers a unique <a href="https://elmprogramming.com/model-view-update-part-2.html">model-view-update</a> creation experience that borrows heavily from the <a href="https://elm-lang.org">Elm framework</a>. It offers a <a href="https://nikolish.in/gs-with-iced-1">retained</a> (as opposed to immediate) mode update system that encourages simplicity by eschewing callbacks. Visual updates are reduced to state changes triggered by enum "messages".</p>
+
+
+  
+  
+    
+    
+    
+  
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube-nocookie.com/embed/gcBJ7cPSALo?si=JSF3XnMv-1EdbxYg&start=781"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+	  loading="lazy"
+          frameborder="0"
+          allowfullscreen
+	  webkitallowfullscreen
+	  mozallowfullscreen>
+  </iframe>
+</div>
+
+<p>It felt funky at first, but once I got used to it, adding buttons and changing the layout was incredibly simple. The trouble was the time that it took time to get there.</p>
+<blockquote>
+<p>One of the main complaints that we get from newcomers to the library is that there is a lack of <a href="https://docs.rs/iced/0.10.0/iced/index.html">documentation</a>. -- <a href="https://github.com/hecrj">Héctor Ramón</a></p>
+</blockquote>
+<p>Reading the code was fun, but it made Iced the most time-consuming duplication of my frontend.</p>
+<blockquote>
+<p>The <a href="https://book.iced.rs/">book</a> is completely empty currently, so if you want to learn, then you have to read a bunch of code from the examples, which, most of them aren't too simple. -- <a href="https://github.com/hecrj">Héctor Ramón</a></p>
+</blockquote>
+<p>Iced was the best-looking library that I explored. The default shapes and colors for buttons and panes are simple and visually pleasing without intruding on the style of Windows, *nix, or macOS. Different enough to be distinct and simple enough to be friendly, the default look of Iced made my project look sellable. Any library can be made to look enough like anything, but the prototypes we show to customers and investors often sport a good bit of <code>create-react-app</code>.</p>
+<p>Using layouts to precisely arrange elements was awesome, and not every library guarantees that ability. I expect I'll miss it dearly as the number of UI elements grows with the project.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/whiskey_glass_ice.png" alt="Cubes of ice in a whiskey glass against a dark background" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>Async programming is what drove me from Iced because it demands a high ergonomic price that I wasn't willing to pay. The <a href="https://without.boats/blog/why-async-rust/">function coloring problem</a> makes it difficult for async code to play nice with sync code, which drove me to rewrite the core logic in async. A zealous measure, but it seemed like the best way to reclaim lost simplicity. The cost of the conversion came to light when I found how involved it was to add new features.</p>
+<blockquote>
+<p>Async can be avoided by using <a href="https://docs.rs/iced/0.10.0/iced/trait.Sandbox.html"><code>Sandbox</code></a> instead of <a href="https://docs.rs/iced/0.10.0/iced/application/trait.Application.html"><code>Application</code></a> to set up the GUI, but it seemed like everything <em>cool</em> in <a href="https://github.com/iced-rs/iced/tree/master/examples"><code>examples/</code></a> required the latter.</p>
+</blockquote>
+<p>This had the side effect of forcing me to choose an <a href="https://docs.rs/iced/0.10.0/iced/trait.Executor.html"><code>Executor</code></a> much earlier than I would've liked. Before Iced, I was happily coding along with <a href="https://doc.rust-lang.org/std/sync/mpsc/fn.channel.html"><code>channels</code></a>, assuming that a GUI thread would be just another splash in the thread pool. Async constructs and channels <em>could</em> coexist peacefully, but simplicity demanded that I centralize control by attaching my core logic to the executor. That sufficed until it blocked WASM compilation targets. Channels, by contrast, needed only <a href="https://docs.rs/wasm-bindgen-futures/latest/wasm_bindgen_futures/">wasm-bindgen-futures</a> to transparently "fake" multiple threads in the browser.</p>
+<p>“Not production ready” is written all over the docs, but Iced never crashed on me. It's a terrific library that deserves more attention than it gets, but I got the impression that adoption would drive me to contributing before long. GUI work don't sing to my passions, though, so I chose to part ways with gratitude and optimistic expectations. I fully expect to use it again in the future.</p>
+<h1 id="tauri"><a class="zola-anchor" href="#tauri" aria-label="Anchor link for: tauri">Tauri</a></h1>
+<p>Not so much a GUI crate as a super-wrapper of sorts, Tauri offers an <a href="https://www.electronjs.org">Electron</a>esque <a href="https://youtu.be/XjbVnwBtVEk?si=e5v-cyhWabnn4h23&amp;t=356">"platform webview"</a> that's <a href="https://www.youtube.com/watch?v=UxTJeEbZX-0&amp;t=233s">easier on system resources</a>.</p>
+<blockquote>
+<p>Electron's the webpage-in-a-box behind Discord, VSCode, Slack, Atom, and Skype.</p>
+</blockquote>
+<p>I hoped to paint some JavaScript over my Rust code and reap the aesthetic benefits of the web. The result would be a quick application that looked great and ran anywhere. I couldn't stomach going back to JavaScript, but the <a href="https://tauri.app/v1/guides/getting-started/setup/">starter guide</a> made for a fun intro to <a href="https://learn.svelte.dev/tutorial/introducing-sveltekit">Sveltekit</a>.</p>
+<blockquote>
+<p>"Come for the Rust, but stay for the JS. It's a terrible claim, but basically, what we're trying to do with the API is lower the barrier of entry for people who want the safety guarantees of Rust and the very strict approach to access of the system assets that we can offer from Tauri." -- Denjell</p>
+</blockquote>
+
+
+  
+  
+    
+    
+    
+  
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube-nocookie.com/embed/BhmXTi0X7Kg?si=C5cH9eI2kc08qeK1&start=2300"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+	  loading="lazy"
+          frameborder="0"
+          allowfullscreen
+	  webkitallowfullscreen
+	  mozallowfullscreen>
+  </iframe>
+</div>
+
+<p>The Sveltekit intro tracks with the unparalleled <a href="https://tauri.app/v1/guides/">docs</a> that <a href="https://twitter.com/lorenzoilewis">Lorenzo Lewis</a> is making <a href="https://beta.tauri.app">even better</a>. He and the other Tauri folks had a warm presence at <a href="https://rustconf.com">RustConf</a> this year and their partner company <a href="https://crabnebula.dev/blog/tauri-partnership">Crab Nebula</a> continues to inject love into the Rustacean community.</p>
+<p>Developer prioritization culminates in an inspiring CI ecosystem with deployment capabilities approaching that of <a href="https://github.com/goreleaser/goreleaser">goreleaser</a>. My <a href="https://www.goingforbrooke.com/personal_blog/action-universal/">CI pipelines</a> borrow heavily from Tauri's example.</p>
+<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><p lang="en" dir="ltr">4 years ago today, Denjell &amp; Lucas, the co-founders of Tauri, wrote C++ for the last time and decided that <a href="https://twitter.com/rustlang?ref_src=twsrc%5Etfw">@rustlang</a> would be the foundation for what today is the most popular of all <a href="https://twitter.com/hashtag/OSS?src=hash&amp;ref_src=twsrc%5Etfw">#OSS</a> projects of its age on <a href="https://twitter.com/github?ref_src=twsrc%5Etfw">@github</a> written in Rust:<a href="https://t.co/ZhrGKOJHAd">https://t.co/ZhrGKOJHAd</a> <a href="https://t.co/VsyMRwRXmu">pic.twitter.com/VsyMRwRXmu</a></p>&mdash; Tauri (@TauriApps) <a href="https://twitter.com/TauriApps/status/1660938334884036608?ref_src=twsrc%5Etfw">May 23, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>My biggest issue with Tauri was how much it slowed filesystem access. Compared to <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#egui">egui</a>, it took far longer to count every file on my machine, probably due to the <a href="https://tauri.app/v1/api/js/fs/">file access whitelist</a>. It's an ambitious standard for security that I'd like to see in other projects, but I really want my Rust code to run unimpeded.</p>
+<p>Researching solutions got me lost in the world of <a href="https://vitejs.dev">Vite</a> and other <a href="https://webassembly.org">WASM</a>-related stuff. It's fascinating reading, but too esoteric for the simplicity I crave.</p>
+<p>By the end of my time with it, I felt that Tauri was focused more on being powered <em>by</em> Rust than being <em>for</em> Rust. The CI/CD, documentation, and explicit security were wonderful, but those conveniences weren't enough to justify mixing NodeJS into my project. Inspired by <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#iced">Iced</a>, I tried <a href="https://elm-lang.org">Elm</a>, but that fun little detour was a weird little Haskell-world unto itself.</p>
+<h1 id="egui"><a class="zola-anchor" href="#egui" aria-label="Anchor link for: egui">egui</a></h1>
+<p><a href="https://github.com/emilk/egui">egui</a> has my heart because it's incredibly simple and plays nice with all compilation targets.</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https:&#x2F;&#x2F;www.egui.rs&#x2F;#demo"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+	  loading="lazy"
+          frameborder="0"
+          allowfullscreen
+	  webkitallowfullscreen
+	  mozallowfullscreen>
+  </iframe>
+</div>
+
+<p>The default look won't win any awards, but built-in graphs give us JavaScript-like visualizations that other GUI libraries are only beginning to add. A few <a href="https://github.com/emilk/egui#can-i-customize-the-look-of-egui">tweaks</a> to the global theme look pretty sweet pretty fast, but it's tedious to <a href="https://github.com/emilk/egui/issues/3284">style elements in groups</a>.</p>
+<blockquote>
+<p>Best of all, it has a dark theme! 🤯</p>
+</blockquote>
+<p>Given the project's incredible growth over the last year, I'm confident that what doesn't already exist won't be that far off. Project churn in the Rust ecosystem has made it feel more chaotic than it is, but I could always count on <a href="https://twitter.com/ernerfeldt">emilk</a>'s benevolent care to keep egui alive as other crates fell into disuse.</p>
+<p>What egui doesn't have, I'm certain I could add myself. The simplicity you see in the API permeates the project. For instance, the code behind this <a href="https://github.com/emilk/egui/blob/0.25.0/examples/hello_world/src/main.rs">hello world example</a>.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/egui_hello_world.png" alt="Screenshot of a simple application with a slider and a picture of Ferris the crab." class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>I left out the boilerplate because the meat of the GUI lives in <code>update()</code>. The <a href="https://nikolish.in/gs-with-iced-1">immediate approach</a> calls <code>update()</code> <a href="https://github.com/emilk/egui/issues/1109#issuecomment-1013742990">many times a second</a>, completely redrawing the screen each time 🤣. All that <em>is</em> and all that <em>do</em> exists in one place.</p>
+<pre data-lang="rust" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-rust "><code class="language-rust" data-lang="rust"><span style="color:#569cd6;">impl </span><span>eframe::App </span><span style="color:#569cd6;">for </span><span>MyApp {
+</span><span>    </span><span style="color:#569cd6;">fn </span><span>update(</span><span style="color:#569cd6;">&amp;mut </span><span>self, ctx: </span><span style="color:#569cd6;">&amp;</span><span>egui::Context, _frame: </span><span style="color:#569cd6;">&amp;mut </span><span>eframe::Frame) {
+</span><span>        egui::CentralPanel::default().show(ctx, |ui| {
+</span><span>            ui.heading(</span><span style="color:#d69d85;">&quot;My egui Application&quot;</span><span>);
+</span><span>            ui.horizontal(|ui| {
+</span><span>                </span><span style="color:#569cd6;">let</span><span> name_label = ui.label(</span><span style="color:#d69d85;">&quot;Your name: &quot;</span><span>);
+</span><span>                ui.text_edit_singleline(</span><span style="color:#569cd6;">&amp;mut </span><span>self.name)
+</span><span>                    .labelled_by(name_label.id);
+</span><span>            });
+</span><span>            ui.add(egui::Slider::new(</span><span style="color:#569cd6;">&amp;mut </span><span>self.age, </span><span style="color:#b5cea8;">0</span><span style="color:#569cd6;">..</span><span>=</span><span style="color:#b5cea8;">120</span><span>).text(</span><span style="color:#d69d85;">&quot;age&quot;</span><span>));
+</span><span>            </span><span style="color:#569cd6;">if</span><span> ui.button(</span><span style="color:#d69d85;">&quot;Click each year&quot;</span><span>).clicked() {
+</span><span>                self.age += </span><span style="color:#b5cea8;">1</span><span>;
+</span><span>            }
+</span><span>            ui.label(format!(</span><span style="color:#d69d85;">&quot;Hello &#39;</span><span style="color:#b4cea8;">{}</span><span style="color:#d69d85;">&#39;, age </span><span style="color:#b4cea8;">{}</span><span style="color:#d69d85;">&quot;</span><span>, self.name, self.age));
+</span><span>
+</span><span>            ui.image(egui::include_image</span><span style="color:#569cd6;">!</span><span>(
+</span><span>                </span><span style="color:#d69d85;">&quot;../../../crates/egui/assets/ferris.png&quot;
+</span><span>            ));
+</span><span>        });
+</span><span>    }
+</span><span>}
+</span></code></pre>
+<p>Those redraws add some CPU strain, but it's not a big deal if the GUI has its own thread 🧐. Mobile targets stand to suffer the most due to the impact on battery life. I'm hesitant to chalk this up to an intrinsic flaw, though, because optimzation, like <a href="https://github.com/lucasmerlin/hello_egui#experimental-crates">animations</a>, hasn't been explored yet.</p>
+<blockquote>
+<p>If your GUI is highly interactive, then immediate mode may actually be more performant compared to retained mode. Go to any web page and resize the browser window, and you'll notice that the browser is very slow to do the layout and eats a lot of CPU doing it. Resize a window in egui by contrast, and you'll get smooth 60 FPS at no extra CPU cost. -- <a href="https://github.com/emilk/egui/tree/0.25.0#cpu-usage">egui docs</a></p>
+</blockquote>
+<blockquote class="twitter-tweet" data-dnt="true" data-theme="dark"><p lang="en" dir="ltr">It&#39;s fun to use cargo-tally to track adoption of new egui releases <a href="https://t.co/O0WhoKnG7w">pic.twitter.com/O0WhoKnG7w</a></p>&mdash; emilk (@ernerfeldt) <a href="https://twitter.com/ernerfeldt/status/1725153388210385154?ref_src=twsrc%5Etfw">November 16, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<p>The benefit of barbarous rendering is a crisp response that few have touched since the programs of yore. Clicks register almost presciently, building trust. That is, if my user can ignore the mounting suspicion that they've downloaded a trojan.</p>
+<p>Here's how <a href="https://github.com/goingforbrooke/folsum/tree/main">my project's</a> looking with egui.</p>
+<blockquote>
+<p>Lowkey the "Summarize" button doesn't work in WASM builds because I haven't added dummy files (yet).</p>
+</blockquote>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https:&#x2F;&#x2F;www.goingforbrooke.com&#x2F;folsum&#x2F;"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+	  loading="lazy"
+          frameborder="0"
+          allowfullscreen
+	  webkitallowfullscreen
+	  mozallowfullscreen>
+  </iframe>
+</div>
+
+<p>Layout capabilities are egui's the biggest deficiency it intrinsically forbids the concept of a layout as we know it. Neatly proportioned panes aren't in the cards when you're tossing in elements from the top left to bottom right.</p>
+<p>Egui's incredibly portable, happily deploying to Windows and MacOS with no code or dependency changes. The WASM build above was a <a href="https://github.com/emilk/eframe_template">starter template</a> serendipity and it'll even <a href="https://tauri.app/blog/2022/09/19/tauri-egui-0-1/">fit inside</a> <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#tauri">Tauri</a> 🤯.</p>
+<p>The <a href="https://github.com/emilk/egui/blob/master/README.md">README</a> comprises most of the docs, though I needed little help beyond the <a href="https://github.com/emilk/eframe_template/">starter template</a> and a few examples.</p>
+<blockquote>
+<p>24-6-2 Update: There's now a <a href="https://docs.rs/egui/0.27.2/egui/index.html#my-text-is-blurry">suggested fix</a> for fuzzy text, though I haven't tried it (yet).</p>
+</blockquote>
+<h1 id="honorable-mention-dioxus"><a class="zola-anchor" href="#honorable-mention-dioxus" aria-label="Anchor link for: honorable-mention-dioxus">Honorable Mention: Dioxus</a></h1>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/dioxus_wifi_scanner.png" alt="Screenshot of a simple wifi scanning application with each network&#x27;s name, strength, channel, and security." class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p><a href="https://github.com/DioxusLabs/dioxus">Dioxus</a> is gaining popularity with its React-style component update model. I haven't tried it yet because I'm weary of React's labyrinthine update propagations.</p>
+<p>The project has incredible documentation and a thriving community that makes me want to procrastinate in GUIland even longer.</p>
+<h1 id="honorable-mention-xilem"><a class="zola-anchor" href="#honorable-mention-xilem" aria-label="Anchor link for: honorable-mention-xilem">Honorable Mention: Xilem</a></h1>
+<p><a href="https://github.com/emilk/egui/blob/master/README.md">Xilem</a> looks promising, but it's <a href="https://www.xilem.dev">more idea</a> than library. It aims to become Rust's definitive UI framework by incorporating lessons from SwiftUI and <a href="https://github.com/linebender/druid">Druid</a>, a popular crate that was discontinued in favor of Xilem. I'm excited to watch <a href="https://mastodon.online/@raph">Raph Levien’s</a> <a href="https://raphlinus.github.io/rust/gui/2022/05/07/ui-architecture.html">vision</a> mature into an incredible developer experience.</p>
+<blockquote>
+<p>Xilem unapologetically contains at its core a lightweight change propagation engine, similar in scope to the attribute graph of SwiftUI, but highly specialized to the needs of UI, and in particular with a lightweight approach to downward propagation of dependencies, what in React would be stated as the flow of props into components. -- <a href="https://mastodon.online/@raph">Raph Levien’s</a></p>
+</blockquote>
+<h1 id="honorable-mention-makepad"><a class="zola-anchor" href="#honorable-mention-makepad" aria-label="Anchor link for: honorable-mention-makepad">Honorable Mention: Makepad</a></h1>
+<p>Like <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#egui">egui</a>, <a href="https://github.com/makepad/makepad/">Makepad's</a> an immediate mode contender.</p>
+<blockquote>
+<p>"because there's always been this fight between 'how do you make a UI that is designable, and how do you make a UI that's programmable?" -- Rik Arends <a href="https://x.com/rikarends?s=20">@rikarends</a></p>
+</blockquote>
+
+
+  
+  
+    
+    
+    
+  
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube-nocookie.com/embed/rC4FCS-oMpg?si=qT2ZWRzigA96PsD-&start=1208"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+	  loading="lazy"
+          frameborder="0"
+          allowfullscreen
+	  webkitallowfullscreen
+	  mozallowfullscreen>
+  </iframe>
+</div>
+
+<p>It offers a lot more flashy bits than what's on display here, and the <a href="https://makepad.nl/makepad/examples/ironfish/src/index.html">ironfish synth</a> is a blast to play around with.</p>
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https:&#x2F;&#x2F;makepad.nl&#x2F;makepad&#x2F;examples&#x2F;simple&#x2F;src&#x2F;index.html"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+	  loading="lazy"
+          frameborder="0"
+          allowfullscreen
+	  webkitallowfullscreen
+	  mozallowfullscreen>
+  </iframe>
+</div>
+
+<p>The trouble here is that it's not production ready (yet).</p>
+<blockquote>
+<p>"not production ready" <a href="https://x.com/JanPaul123?s=20">@JanPaul123</a></p>
+</blockquote>
+<h1 id="honorable-mention-slint"><a class="zola-anchor" href="#honorable-mention-slint" aria-label="Anchor link for: honorable-mention-slint">Honorable Mention: Slint</a></h1>
+<p><a href="https://github.com/slint-ui/slint">Slint</a> has a nice look and seems to <a href="https://madewithslint.com">cater to embedded systems</a>, which I hoped would translate to portability. The creators wanted to move on from Qt to mouse-driven UI modelling that could then be wired up to code.</p>
+
+
+  
+  
+    
+    
+    
+  
+
+
+<div style="position: relative; padding-bottom: 56.25%; height: 0; overflow: hidden;">
+  <iframe src="https://www.youtube-nocookie.com/embed/7aFgeUG9TK4?si=EUEfnGGT4vUa41mJ&start=619"
+          style="position: absolute; top: 0; left: 0; width: 100%; height: 100%;"
+	  loading="lazy"
+          frameborder="0"
+          allowfullscreen
+	  webkitallowfullscreen
+	  mozallowfullscreen>
+  </iframe>
+</div>
+
+<p>I didn't give Slint a shot because it required money <a href="https://slint.dev/blog/slint-1.1-released">until recently</a>. Maybe it deserves another go?</p>
+<blockquote class="twitter-tweet" data-theme="dark"><p lang="en" dir="ltr">how weird is it that Slint&#39;s charging for a GUI library in a young language</p>&mdash; Brooke (@goingforbrooke) <a href="https://twitter.com/goingforbrooke/status/1724544156377534884?ref_src=twsrc%5Etfw">November 14, 2023</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+<h1 id="conclusion"><a class="zola-anchor" href="#conclusion" aria-label="Anchor link for: conclusion">Conclusion</a></h1>
+<p><a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#egui">egui</a> has my heart, but I'm eager to try <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#honorable-mention-dioxus">Dioxus</a>. <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#honorable-mention-xilem">Xilem</a> might eventually come to save us all, but <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#egui">egui</a>, <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#iced">iced</a> and <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/#honorable-mention-dioxus">dioxus</a> are the most viable bridges to mouse-land. 🐁</p>
+<h1 id="additional-material"><a class="zola-anchor" href="#additional-material" aria-label="Anchor link for: additional-material">Additional Material</a></h1>
+<p>The list of Rust GUI projects on <a href="https://areweguiyet.com">areweguiyet.com</a> is regularly updated with new and archived repos. The merits of the most popular options are regularly updated on LogRocket's <a href="https://blog.logrocket.com/state-of-rust-gui-libraries/">blog</a>.</p>
+<p>Igor Loskutov's <a href="https://monadical.com/posts/shades-of-rust-gui-library-list.html#18-Makepad">50 shades of Rust</a> offers code samples and thorough commentary on an incredible breadth of 50 libraries. A code-rich overview can be found in <a href="https://dev.to/davidedelpapa/rust-gui-introduction-a-k-a-the-state-of-rust-gui-libraries-as-of-january-2021-40gl">State of Rust GUIs</a>. The code samples are getting out of date, but they convey the ethos of each library.</p>
+<p>The <a href="http://lukaskalbertodt.github.io/2023/02/03/tauri-iced-egui-performance-comparison.html">performance comparision of Tauri, Iced, and egui</a> offers an intriguing account of each approach's resource cost.</p>
+
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Would you like to know more?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://www.goingforbrooke.com/personal_blog/actions-unpractices/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">Un-Practices in GitHub Actions</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/">
+                                <span class="button__text">Rusty Bespoke CI&#x2F;CD</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Brooke Deuson</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep">:: </span>
+                        Theme: <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a> by pawroman
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HD5RZH5144"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HD5RZH5144');
+</script>
+
+</html>

@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Rusty Bespoke CI&#x2F;CD | </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/style.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/turquoise.css">
+
+        <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/background_blue.css">
+    
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-exo2.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-hack.css">
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Rusty Bespoke CI/CD | ">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Rusty Bespoke CI/CD | ">
+    <meta property="twitter:domain" content="www.goingforbrooke.com&#x2F;personal_blog&#x2F;">
+    <meta property="twitter:url" content="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/">
+
+        <link rel="alternate" type="application/atom+xml" title=" Atom Feed" href="https://www.goingforbrooke.com/personal_blog/atom.xml" />
+    
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+        <link rel="manifest" href="/manifest.webmanifest">
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://www.goingforbrooke.com" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            goingforbrooke.com
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/">Rusty Bespoke CI&#x2F;CD</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-12-21
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/cicd/">#cicd</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/rust/">#rust</a></span>
+    
+
+        <div class="post-content">
+            <p>Rusty options for CI/CD pipelines and why Xtask is best for complex pipelines.</p>
+<span id="continue-reading"></span>
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/crab_infinite_mirror.webp" alt="An orange crab looking into an infinite mirror" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<h1 id="issue"><a class="zola-anchor" href="#issue" aria-label="Anchor link for: issue">Issue</a></h1>
+<p>We want to automate the delivery of a desktop app to our users, but we don't have a pre-wrapped solution like <a href="https://goreleaser.com">Goreleaser</a> to do that for us. <a href="https://crabnebula.dev">CrabNebula</a> and <a href="https://www.shuttle.rs">Shuttle</a> have some pretty sweet offerings, but I'd rather put the work into a bespoke solution that'll outlast any company and always be free.</p>
+<blockquote>
+<p>If anyone's wondering about <code>build.rs</code>, it's called <em>before</em> compilation for stuff like macro expansion.</p>
+</blockquote>
+<h1 id="solution"><a class="zola-anchor" href="#solution" aria-label="Anchor link for: solution">Solution</a></h1>
+<p>Options:</p>
+<ol>
+<li><a href="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/#shell-scripts">🐚 Shell Scripts</a>: Automate the commands that we're already running</li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/#python-scripts">🐍 Python Scripts</a>: Automate commands by calling them with Python</li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/#cargo-make">📦 Cargo Make</a>: Automate commands in building blocks</li>
+<li><a href="https://www.goingforbrooke.com/personal_blog/cicd-frameworks/#xtask-framework">🦀 Xtask Framework</a>: Use Rust to write our scripts</li>
+</ol>
+<h1 id="shell-scripts"><a class="zola-anchor" href="#shell-scripts" aria-label="Anchor link for: shell-scripts">Shell Scripts</a></h1>
+<p>Dumping shell history to make a script is nothing new.</p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span>$ bat ~/.zsh_history &gt; something.zsh
+</span></code></pre>
+<p>I get pretty fed up with dquotes and folow control after 25 lines, which is down from the 100 lines of forbearance that I used to be so proud of. Flow control isn't as bad as YAML (cough cough <a href="https://www.goingforbrooke.com/personal_blog/crappy-guis/">Actions</a>), but I'm left wanting the features of a full-bodied language for things like logging and syntax checking.</p>
+<p>Building and testing software are long-running operations, so I feel like it saves time if we it get it right on the first try. These time savings compound when we consider the cost of fixing a broken pipeline. We might not update a project for six months, and when we return to it, even the most bulletproof CI/CD pipeline might be broken. In that sad, tense moment, when my mental energies are already depleted and my users are clamoring for a fix, deciphering shell scripts is the last thing I wanna do.</p>
+<h1 id="cargo-make"><a class="zola-anchor" href="#cargo-make" aria-label="Anchor link for: cargo-make">Cargo Make</a></h1>
+<p><a href="https://sagiegurari.github.io/cargo-make/">Cargo Make</a>'s Makefiles improve on these scripts by breaking them up into discrete chunks. Combined with strong integration into IDEs like <a href="https://www.jetbrains.com/rust/">RustRover</a>, it's a great solution for 95% of CI/CD problems. Since most of us have used Makefiles before, this is awesome for working with a team. I find it lacking for my use case because it's best suited for short, repeatable actions like checking for syntax errors. Longer operations are cumbersome to manage and we never get away from the issues inherent to shell scripts.</p>
+<h1 id="python-scripts"><a class="zola-anchor" href="#python-scripts" aria-label="Anchor link for: python-scripts">Python Scripts</a></h1>
+<p>What about snek? Python's a bit better, offering sane flow control and friendly syntax, but I don't relish the thought of a multi-language environment. Using libraries for Git and app signing often goes poorly, so I end up using Python to call shell commands and check if they failed. The upside is that it's much easier to parse command output and make decisions based off it-- no dquote nightmares or deeply nested <code>if</code>/<code>then</code>/<code>do</code>/<code>for</code>s. Since I'm using another langauge to call shell scripts, why not avoid the cost of a multi-language environment and use Rust to call them instead?</p>
+<h1 id="xtask-framework"><a class="zola-anchor" href="#xtask-framework" aria-label="Anchor link for: xtask-framework">Xtask Framework</a></h1>
+<p>That brings us to <a href="https://github.com/matklad/cargo-xtask">Xtask</a>, which super dope and a little cursed. Rather offer a language or batched scripting, Xtask hijacks <a href="https://doc.rust-lang.org/book/ch14-03-cargo-workspaces.html">workspaces</a>. These are originally intended for large projects with smaller projects inside of them, but we use them to use a discrete binary for building our code.</p>
+<p>Here's <a href="https://github.com/goingforbrooke/folsum/tree/main">FolSum</a> before and after adding Xtask:</p>
+<p>Before:</p>
+<pre data-lang="text" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-text "><code class="language-text" data-lang="text"><span>📂 folsum/ 🟩
+</span><span>├── 📂 src/
+</span><span>├── 📂 target/
+</span><span>├── 📂 tests/
+</span><span>├── Cargo.toml
+</span><span>├── Cargo.lock
+</span><span>├── LICENSE.md
+</span><span>├── README.md
+</span></code></pre>
+<p>After:</p>
+<pre data-lang="text" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-text "><code class="language-text" data-lang="text"><span>📂 folsum/ ✨
+</span><span>├── Cargo.toml ✨🟩
+</span><span>├── Cargo.lock ✨
+</span><span>├── LICENSE.md
+</span><span>├── README.md
+</span><span>├── 📂 folsum/
+</span><span>    ├── 📂 src/ 
+</span><span>    ├── 📂 target/
+</span><span>    ├── 📂 tests/
+</span><span>    ├── Cargo.toml
+</span><span>    └── Cargo.lock
+</span><span>└── 📂 xtask/
+</span><span>    ├── 📂 src/ ✨
+</span><span>    ├── 📂 target/ ✨
+</span><span>    ├── 📂 tests/ ✨
+</span><span>    ├── Cargo.toml ✨
+</span><span>    └── Cargo.lock ✨
+</span></code></pre>
+<p>This lets us use Rust to write CI/CD pipelines for <code>folsum/</code> in <code>xtask/</code>. Why's the latter called <code>xtask</code>? It's just convention, but there's enough momentum behind the name that peeps just might know what you're talking about.</p>
+<blockquote>
+<p>Check out the <a href="https://github.com/sebastienrousseau/xtasks">Xtasks</a> crate for script-like helpers for things like copying files.</p>
+</blockquote>
+<p>The new top-level <code>Cargo.toml</code> (🟩) configures the workspace.</p>
+<pre data-lang="toml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-toml "><code class="language-toml" data-lang="toml"><span>[</span><span style="color:#808080;">workspace</span><span>]
+</span><span style="color:#569cd6;">members </span><span>= [</span><span style="color:#d69d85;">&quot;folsum&quot;</span><span>, </span><span style="color:#d69d85;">&quot;xtask&quot;</span><span>,]
+</span><span style="color:#569cd6;">resolver </span><span>= </span><span style="color:#d69d85;">&quot;2&quot;
+</span></code></pre>
+<p>Xtask's drawback is that we need to remember the <code>--package</code> flag when we add new crates:</p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span>$ cargo add dirs --package folsum
+</span></code></pre>
+<p>Xtask lets us run CI/CD operations on our local machine the same way it'll run on the build server, all in a language that we know and love! 🦀🤯🏆</p>
+
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Would you like to know more?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://www.goingforbrooke.com/personal_blog/rust-guis/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">Simple Rust GUIs for Desktop Apps</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://www.goingforbrooke.com/personal_blog/why-rust/">
+                                <span class="button__text">Why Rust</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Brooke Deuson</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep">:: </span>
+                        Theme: <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a> by pawroman
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HD5RZH5144"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HD5RZH5144');
+</script>
+
+</html>

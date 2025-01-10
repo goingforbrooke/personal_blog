@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Go: Get Off My Lawn | </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/style.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/turquoise.css">
+
+        <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/background_blue.css">
+    
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-exo2.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-hack.css">
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Go: Get Off My Lawn | ">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.goingforbrooke.com/personal_blog/golang-custom-install/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Go: Get Off My Lawn | ">
+    <meta property="twitter:domain" content="www.goingforbrooke.com&#x2F;personal_blog&#x2F;">
+    <meta property="twitter:url" content="https://www.goingforbrooke.com/personal_blog/golang-custom-install/">
+
+        <link rel="alternate" type="application/atom+xml" title=" Atom Feed" href="https://www.goingforbrooke.com/personal_blog/atom.xml" />
+    
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+        <link rel="manifest" href="/manifest.webmanifest">
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://www.goingforbrooke.com" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            goingforbrooke.com
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://www.goingforbrooke.com/personal_blog/golang-custom-install/">Go: Get Off My Lawn</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-06-08
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/golang/">#golang</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/howto/">#howto</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/toolchain/">#toolchain</a></span>
+    
+
+        <div class="post-content">
+            <p>So, this gopher came to my <code>~</code>, s*** on my lawn, and built a fence around it, as if it was theirs. There's gotta be a better way to bring home a (Go)pher.</p>
+<span id="continue-reading"></span><h1 id="travesty"><a class="zola-anchor" href="#travesty" aria-label="Anchor link for: travesty">Travesty</a></h1>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/golang_lawn.png" alt="The Golang mascot sitting on the lawn in front of a house" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>Installing Go unceremoniously creates <code>~/go</code>. Worse, it takes <code>sudo</code> to <code>rm -rf</code> the directory due to permission issues. Thankfully, it doesn't pollute <code>~/.zshrc</code>/<code>~/.bashrc</code> with PATH additions, but that leaves Go's binaries (<code>~/go/bin</code>) out in the cold.</p>
+<h1 id="solution"><a class="zola-anchor" href="#solution" aria-label="Anchor link for: solution">Solution</a></h1>
+<blockquote>
+<p>The GOPATH environment variable specifies the location of your workspace. It defaults to a directory named go inside your home directory, so $HOME/go on Unix, $home/go on Plan 9, and %USERPROFILE%\go (usually C:\Users\YourName\go) on Windows.</p>
+</blockquote>
+<p>I use <code>~/.go</code> instead of <code>~/go</code> by setting the <a href="https://go.dev/doc/gopath_code#the-gopath-environment-variable"><code>$GOPATH</code> environment variable</a> to <code>$HOME/go</code> before installation.</p>
+<p><code>~/.zshrc</code></p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#608b4e;"># Use `~/.go` instead of `~/go` for Golang.
+</span><span style="color:#569cd6;">export </span><span>GOPATH=</span><span style="background-color:#282828;color:#d69d85;">&quot;$</span><span style="background-color:#282828;color:#dcdcdc;">HOME</span><span style="background-color:#282828;color:#d69d85;">/.go&quot;</span><span>
+</span></code></pre>
+<p>Then I add <code>~/.go/bin</code> to my <code>PATH</code> so I can use <code>go install</code>ed binaries like <a href="https://github.com/konoui/lipo"><code>lipo</code></a>.</p>
+<p><code>~/.zshrc</code></p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span style="color:#608b4e;"># Add Go binaries to the path.
+</span><span style="color:#569cd6;">export </span><span>PATH=</span><span style="background-color:#282828;color:#d69d85;">$</span><span style="background-color:#282828;color:#dcdcdc;">PATH</span><span style="background-color:#282828;color:#d69d85;">:</span><span style="background-color:#282828;color:#dcdcdc;">~</span><span style="background-color:#282828;color:#d69d85;">/.go/bin</span><span>
+</span></code></pre>
+<p>With those additions, reload <code>.zshrc</code> for the changes to take effect.</p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span>$ source ~/.zshrc
+</span></code></pre>
+<h1 id="install-go"><a class="zola-anchor" href="#install-go" aria-label="Anchor link for: install-go">Install Go</a></h1>
+<p>Go's <a href="https://go.dev/doc/install">installation docs</a> recommend downloading a package file, but I use <a href="https://formulae.brew.sh/formula/go">a brew formula</a> so things stay up-to-date.</p>
+<h1 id="bonus-avoid-name-collisions"><a class="zola-anchor" href="#bonus-avoid-name-collisions" aria-label="Anchor link for: bonus-avoid-name-collisions">Bonus: Avoid Name Collisions</a></h1>
+<p>Installing the <a href="https://github.com/konoui/lipo">Go version of <code>lipo</code></a> collides with <a href="https://developer.apple.com/documentation/apple-silicon/building-a-universal-macos-binary#Determine-Whether-Your-Binary-Is-Universal">MacOS's <code>lipo</code></a>.</p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span>$ go install github.com/konoui/lipo@latest` 
+</span><span>$ where lipo
+</span><span>/usr/bin/lipo
+</span><span>/Users/goingforbrooke/.go/bin/lipo
+</span></code></pre>
+<p>This means that <code>lipo</code> will only call MacOS's <code>lipo</code> (<code>/usr/bin/lipo</code>). The Go version of <code>lipo</code>'s still accessible with its full path (<code>/Users/goingforbrooke/.go/bin/lipo</code>), but that's irritating to type.</p>
+<p>To avoid calling the wrong <code>lipo</code>, create a <a href="https://en.wikipedia.org/wiki/Symbolic_link">softlink</a> in a directory on <code>PATH</code>, such as <code>~/bin/</code>.</p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span>$ ln -s ~/.go/bin/lipo ~/bin/golipo
+</span></code></pre>
+<p>That made a softlink called <code>golipo</code> in <code>~/bin</code>, as <code>ls -l</code> can show us.</p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span>$ ls -l bin/golipo
+</span><span>lrwxr-xr-x 24 goingforbrooke  4 Feb 42:42 bin/golipo -&gt; /Users/flow/.go/bin/lipo
+</span></code></pre>
+<p>Again, <code>source ~/.zshrc</code> for the changes to take effect.</p>
+<p>Now the Go version of <code>lipo</code> is accessible via <code>golipo</code>.</p>
+<pre data-lang="zsh" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-zsh "><code class="language-zsh" data-lang="zsh"><span>$ where golipo
+</span><span>/Users/goingforbrooke/bin/golipo
+</span></code></pre>
+
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Would you like to know more?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://www.goingforbrooke.com/personal_blog/actions-reflections/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">Reflections on Github Actions</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://www.goingforbrooke.com/personal_blog/crappy-guis/">
+                                <span class="button__text">My GUIs Suck and that&#x27;s Okay</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Brooke Deuson</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep">:: </span>
+                        Theme: <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a> by pawroman
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HD5RZH5144"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HD5RZH5144');
+</script>
+
+</html>

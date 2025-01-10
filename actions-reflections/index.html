@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Reflections on Github Actions | </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/style.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/turquoise.css">
+
+        <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/background_blue.css">
+    
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-exo2.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-hack.css">
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Reflections on Github Actions | ">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.goingforbrooke.com/personal_blog/actions-reflections/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Reflections on Github Actions | ">
+    <meta property="twitter:domain" content="www.goingforbrooke.com&#x2F;personal_blog&#x2F;">
+    <meta property="twitter:url" content="https://www.goingforbrooke.com/personal_blog/actions-reflections/">
+
+        <link rel="alternate" type="application/atom+xml" title=" Atom Feed" href="https://www.goingforbrooke.com/personal_blog/atom.xml" />
+    
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+        <link rel="manifest" href="/manifest.webmanifest">
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://www.goingforbrooke.com" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            goingforbrooke.com
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://www.goingforbrooke.com/personal_blog/actions-reflections/">Reflections on Github Actions</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-06-01
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/cicd/">#cicd</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/github-actions/">#github_actions</a></span>
+    
+
+        <div class="post-content">
+            <p>GitHub Actions came onto the scene four years ago with the promise of free Continuous Integration (CI) for public repos. I was eager to use it, but quickly found that the product was too young. Buggy UI elements and the dearth of community workflows made it more of a time sink than it was worth, so I left it with the expectation that the issues would be solved.</p>
+<span id="continue-reading"></span><h1 id="philosophy"><a class="zola-anchor" href="#philosophy" aria-label="Anchor link for: philosophy">Philosophy</a></h1>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions_anakin.jpg" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>Hanging over these issues was “the DIY tradeoff,” that is, what price do I pay for using someone else’s tools over my own? With libraries, I carefully weigh the cost of adding a dependency against the cost of writing it myself. On one hand, there’s the chance of getting something that just works without having to put in the work for it. On the other hand, I’ve outsourced a part of my creative process and traded deeper understanding (and satisfaction?) for convenience and speed. Some things, like cryptography, are best left to others, while other things, like cache files, are easy enough to implement myself. With that in mind, when I hire “mercenaries,” I’m careful to weigh their cost against their benefits, even when they’re free.</p>
+<blockquote>
+<p><a href="https://www.gutenberg.org/ebooks/1232">“Mercenaries and auxiliaries are useless and dangerous; and if one holds his state based on these arms, he will stand neither firm nor safe; for they are disunited, ambitious, and without discipline…”</a></p>
+</blockquote>
+<h1 id="goals"><a class="zola-anchor" href="#goals" aria-label="Anchor link for: goals">Goals</a></h1>
+<p>When Actions offered “the DIY tradeoff,” I assumed that, given a few years and a few piles of those sweet sweet Microsoft dollars, the kinks had been worked out. I had two use cases:</p>
+<ol>
+<li><a href="https://www.goingforbrooke.com/personal_blog/pages-ssg/">Automatically update and publish this blog</a> when I push changes to it</li>
+<li>Build and publish my Rust binary for three different platforms</li>
+</ol>
+<h1 id="bash"><a class="zola-anchor" href="#bash" aria-label="Anchor link for: bash">Bash?</a></h1>
+<p>In my mind, GitHub Actions competes with good ‘ole Bash scripts, which I usually run via Python for <a href="https://stackoverflow.com/a/51950538">comprehensive output checking</a> when they get reach ten lines.  I try to avoid learning technologies controlled by companies because I’ll probably be around longer than they will. That feels awful, though, having to bring an interpreter into my CI/CD pipeline. I can afford those excesses on my local box, but throwing those practices into a charge-by-the-minute build server seems wrong. While GitHub’s not charging me for public repos, I like to learn skills and habits that work well in enterprise environments.</p>
+<h1 id="actions-yaml"><a class="zola-anchor" href="#actions-yaml" aria-label="Anchor link for: actions-yaml">Actions: YAML</a></h1>
+<p>That brings us to Actions, which challenges my Bash-thon workflow with a seductively less arduous syntax.</p>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Build, Bundle, and Publish for macOS</span><span>
+</span><span style="color:#569cd6;">on</span><span>:
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">push</span><span>:
+</span><span>    </span><span style="background-color:#282828;color:#569cd6;">branches</span><span>:
+</span><span>      - </span><span style="background-color:#282828;color:#d69d85;">main</span><span>
+</span><span style="background-color:#282828;color:#569cd6;">jobs</span><span>:
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">build</span><span>:
+</span><span>    </span><span style="background-color:#282828;color:#569cd6;">runs-on</span><span>: </span><span style="background-color:#282828;color:#d69d85;">macos-latest</span><span>
+</span><span>    </span><span style="background-color:#282828;color:#569cd6;">env</span><span>:
+</span><span>      </span><span style="background-color:#282828;color:#569cd6;">SCCACHE_GHA_ENABLED</span><span>: </span><span style="color:#d69d85;">&quot;true&quot;
+</span><span>      </span><span style="background-color:#282828;color:#569cd6;">RUSTC_WRAPPER</span><span>: </span><span style="color:#d69d85;">&quot;sccache&quot;
+</span><span>    </span><span style="background-color:#282828;color:#569cd6;">steps</span><span>:
+</span><span>      - </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Checkout code</span><span>
+</span><span>        </span><span style="background-color:#282828;color:#569cd6;">uses</span><span>: </span><span style="background-color:#282828;color:#d69d85;">actions/checkout@v3</span><span>
+</span><span>      - </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Set up sccache-cache</span><span>
+</span><span>        </span><span style="background-color:#282828;color:#569cd6;">uses</span><span>: </span><span style="background-color:#282828;color:#d69d85;">mozilla-actions/sccache-action@v0.0.3</span><span>
+</span><span>      - </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Install Rust toolchain with M1 chip support</span><span>
+</span><span>        </span><span style="background-color:#282828;color:#569cd6;">uses</span><span>: </span><span style="background-color:#282828;color:#d69d85;">dtolnay/rust-toolchain@stable</span><span>
+</span><span>        </span><span style="background-color:#282828;color:#569cd6;">with</span><span>:
+</span><span>          </span><span style="background-color:#282828;color:#569cd6;">toolchain</span><span>: </span><span style="background-color:#282828;color:#d69d85;">stable</span><span>
+</span><span>          </span><span style="background-color:#282828;color:#569cd6;">targets</span><span>: </span><span style="background-color:#282828;color:#d69d85;">aarch64-apple-darwin</span><span>
+</span></code></pre>
+<p>I’m not the biggest fan of YAML, but it’s a nice JSON alternative for mercurial configs that could use some comments. It really shines when there are only 2-3 layers of nesting, but any deeper than that leaves me pining for hanging braces. <a href="https://www.jacobbolda.com/dynamic-matrix-jobs-in-GitHub-actions">Matrices</a> also draw my ire because they ask me to use variables in a context bereft of a debugger. These complexity problems compound when jobs are broken into separate files. After just a few days away from my workflows, they looked alien to me. That’s ok for a dedicated DevOps person working on a large team, but since I’m an army of one on these projects, I strive to keep everything hardcoded in as few files as possible.</p>
+<h1 id="pretty-checkmarks"><a class="zola-anchor" href="#pretty-checkmarks" aria-label="Anchor link for: pretty-checkmarks">Pretty Checkmarks</a></h1>
+<p>My favorite advantage over Bash is the interactivity of workflow steps. As each step finishes, these friendly little green check marks pop up.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions_steps_checks.png" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>When something fails in a Bash script, I have to visually parse dense log output to find the line that created the error. That’s not problematic for a one-off script, but when my CI build breaks, I want to be pointed to the problem right away. Not to mention it’s plain fun watching the green checks populate in another window after pushing some code. Workflow runs follow the same principle, so it’s easy to diagnose which commit went wrong.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions_green_checks.png" alt="screenshot of a GitHub Action hanging on a yellow build" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>The problem with these check marks is that sometimes they lie. GitHub puts on a show of being up-to-date with workflow progress, but some steps get out of sync, particularly long-running ones. For example, this yellow dot kept spinning and never turned green while the timer continued to increment, despite the job being long done.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions_yellow_build.png" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>After refreshing the page, the green checkmark popped up and the timer corrected itself.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions_green_build.png" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>When steps fail, the dense log output makes me wish that I could pipe the output to <code>grep</code>, but instead, I end up copy-pasting to Vim.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions_dense_logs.png" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<h1 id="broken-actions"><a class="zola-anchor" href="#broken-actions" aria-label="Anchor link for: broken-actions">Broken Actions</a></h1>
+<p>Beyond my YAML reservations and state issues, I hoped that I could stand on the shoulders of giants by letting premade Actions do the heavy lifting. GitHub’s <a href="https://github.com/marketplace?type=actions">Actions Marketplace</a> offers a nice menu for finding Actions, but many of these are broken or outdated. Sorting by “Most installed/starred” narrows the results a bit, but stars aren’t a good indicator of viability.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/marketplace_sort_starred.png" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>For example, many resources recommend <code>actions-rs</code>’s Actions to build Rust, which looks to be in good repair on the marketplace.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions-rs_marketplace.png" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>The <a href="https://github.com/actions-rs/toolchain">repo</a> for <code>actions-rs/rust-toolchain</code> tells a different story.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions-rs_toolchain_age.png" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>Running the action works well enough, but its log output is riddled with deprecation errors. A good internet citizen would fork, update, and PR, but…</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/actions-rs_language.png" alt="anakin-padme meme lampooning actions ease of use" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p><a href="https://github.com/dtolnay/rust-toolchain"><code>rust-toolchain</code></a> is a wonderful replacement.</p>
+<p>Automating releases seems like low-hanging fruit, but Action pages aren’t forthcoming with the release philosophies that back them. In the spirit simplicity, I wanted a release-on-push Action tied to the <code>main</code> branch so every merge to <code>main</code> would generate a new release. Generating release notes <a href="https://github.com/marketplace/actions/release-drafter">from PRs</a> and <a href="https://github.com/marketplace/actions/release-please-action">commit messages</a> looked cool, but I prefer to err on the side of simplicity for initial implementations. Not to mention the potential rabbit hole of needing to learn a <a href="https://www.conventionalcommits.org/en/v1.0.0/">new format for my commit messages</a>.</p>
+<p><a href="https://github.com/marketplace/actions/gh-release">GH Release</a> looked like my ticket, but I <a href="https://github.com/softprops/action-gh-release/issues/20#issuecomment-533386013">wrongly assumed</a> that that <a href="https://github.com/marketplace/actions/gh-release#-limit-releases-to-pushes-to-tags">tag gates</a> could be disabled.</p>
+<blockquote>
+<p>“Typically usage of this action involves adding a step to a build that is gated pushes to git tags”</p>
+</blockquote>
+<p>I have nothing against <code>git tag</code> and <code>git push --tags</code>, but they’re easy steps to forget. Instead, if the GitHub version mirror’s <code>Cargo.toml</code>'s <code>version</code>, then the workflow could later be enhanced with automatic SemVer incrementation.</p>
+
+    
+
+
+
+    
+
+
+<pre class="mermaid" style="display: flex; justify-content: center; align-items: center">
+---
+
+title: Branch Prefix Triggers
+
+config:
+  theme: dark
+---
+flowchart LR
+    last_merged_prefix_feat[&quot;`last merged branch prefix: **feat&#x2F;**`&quot;]
+    last_merged_cmd_minor[&quot;`cargo set-version --bump **minor**`&quot;]
+    last_merged_prefix_fix[&quot;`last merged branch prefix: **fix&#x2F;**`&quot;]
+    last_merged_cmd_patch[&quot;`cargo set-version --bump **patch**`&quot;]
+
+    last_merged_prefix_feat --&gt; last_merged_cmd_minor
+    last_merged_prefix_fix --&gt; last_merged_cmd_patch
+</pre>
+<script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+</script>
+
+<p>GH Release doesn’t offer an easy way to <code>git tag</code>, but <a href="https://github.com/marketplace/actions/create-release">Create Release</a> <a href="https://github.com/goingforbrooke/directory_summarizer/blob/eecbd75d891b4ae7b32ec113dd5af07e28ee3eae/.github/workflows/build_macos.yml#L42">does quite nicely</a>. I wish that I had the decision information to start with Create Release before I wandered through the other release Actions.</p>
+<h1 id="final-thoughts"><a class="zola-anchor" href="#final-thoughts" aria-label="Anchor link for: final-thoughts">Final Thoughts</a></h1>
+<p>Actions need the same scrutiny for maintenance and citizenship that libraries do. Unlike a function definition in an API’s documentation, you don’t know what an Action will do before you try it, and trying it involves a lot of waiting and refreshing between iterations. They aren’t as simple as they seem and I’d hesitate to add them to other projects.</p>
+<p>I’m happy with the results because I feel confident that my invisible cloud goblins will buy me more development time than it cost me to make them. That is unless they break before the “break-even point.”</p>
+<p>Overall, my feelings are best summarized by my mentor’s reaction to my tale. “Hmmm,” he said, smiling cheesily, “well at least it’s free.”</p>
+
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Would you like to know more?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://www.goingforbrooke.com/personal_blog/pages-ssg/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">Kill the Mad Scientist! Non-Jekyll Github Pages SSG</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://www.goingforbrooke.com/personal_blog/golang-custom-install/">
+                                <span class="button__text">Go: Get Off My Lawn</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Brooke Deuson</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep">:: </span>
+                        Theme: <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a> by pawroman
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HD5RZH5144"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HD5RZH5144');
+</script>
+
+</html>

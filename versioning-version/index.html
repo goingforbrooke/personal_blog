@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Versioning the Version: Branch-Bumping Cargo.toml | </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/style.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/turquoise.css">
+
+        <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/background_blue.css">
+    
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-exo2.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-hack.css">
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Versioning the Version: Branch-Bumping Cargo.toml | ">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.goingforbrooke.com/personal_blog/versioning-version/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Versioning the Version: Branch-Bumping Cargo.toml | ">
+    <meta property="twitter:domain" content="www.goingforbrooke.com&#x2F;personal_blog&#x2F;">
+    <meta property="twitter:url" content="https://www.goingforbrooke.com/personal_blog/versioning-version/">
+
+        <link rel="alternate" type="application/atom+xml" title=" Atom Feed" href="https://www.goingforbrooke.com/personal_blog/atom.xml" />
+    
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+        <link rel="manifest" href="/manifest.webmanifest">
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://www.goingforbrooke.com" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            goingforbrooke.com
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://www.goingforbrooke.com/personal_blog/versioning-version/">Versioning the Version: Branch-Bumping Cargo.toml</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-08-20
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/cicd/">#cicd</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/github-actions/">#github_actions</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/rust/">#rust</a></span>
+    
+
+        <div class="post-content">
+            <p>Version bumping’s the gateway to a smooth CI/CD process and <a href="https://github.com/goingforbrooke/folsum#branch-naming-conventions">branch naming conventions</a> make it happen behind the scenes.</p>
+<span id="continue-reading"></span><h1 id="issue-monocle-face"><a class="zola-anchor" href="#issue-monocle-face" aria-label="Anchor link for: issue-monocle-face">Issue 🧐</a></h1>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/bionic_tree.png" alt="Naturally-colored tree inlaid with circuitry designs." class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>Git tags are a popular way to version software and trigger CI/CD pipelines, but they exist in VCS-land, a separate dimension from code. I usually forget to tag commits for the CI/CD pipeline, and even then I find myself routinely refreshing my knowledge of the difference between <a href="https://git-scm.com/book/en/v2/Git-Basics-Tagging">lightweight and annotated tags</a>. If I manage to get those steps right without messing up the number, then I forget to add <code>—tags</code> to <code>git push</code>. At each step, the tags have the opportunity to get out of sync with the code base.</p>
+<p>Much of this can be avoided with some combination of <a href="https://git-scm.com/book/en/v2/Customizing-Git-Git-Hooks">Git hooks</a>, <a href="https://git-scm.com/book/en/v2/Git-Basics-Git-Aliases">Git aliases</a>, and client-side scripts, but implementations featuring these tools tend to be more stick than carrot. By the time I <code>git push</code>, my mind’s already working on the next step, and interrupting that process with a pedantic message pulls me out of the groove.</p>
+<p>Since I’m dumb, I need a system that’s smarter than I am.</p>
+<h1 id="solution-magic-wand"><a class="zola-anchor" href="#solution-magic-wand" aria-label="Anchor link for: solution-magic-wand">Solution 🪄</a></h1>
+<p><code>Cargo.toml</code> furnishes us with <code>version</code>, and we use it as the source of truth, <em>versioning the version</em> to the delight of recursive wording fans everywhere. This integrates with the existing Cargo ecosystem and provides an escape hatch for CI/CD pipelines that use Git tags. It’s easier to create a tag from a file than the other way around.</p>
+<h1 id="features-sparkles-and-fixes-beetle"><a class="zola-anchor" href="#features-sparkles-and-fixes-beetle" aria-label="Anchor link for: features-sparkles-and-fixes-beetle">Features ✨ and Fixes 🪲</a></h1>
+<p>Merging to the <code>main</code> branch triggers a release, which builds a macOS binary and <a href="https://github.com/goingforbrooke/folsum/blob/645604c6ea87394f0ae4bf6c224e3570b8ed04c0/.github/workflows/build_macos.yml#L105-L115">decides</a> whether to bump the <a href="https://semver.org">minor or fix version</a>. This decision depends on the prefix of the last branch that was merged to <code>dev</code>. If it was <code>fix/</code>, then the fix version’s incremented, but if it was <code>feat/</code>, then the minor version’s incremented.</p>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>- </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Decide whether to bump the minor or patch version</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">id</span><span>: </span><span style="background-color:#282828;color:#d69d85;">decide_bump_type</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">run</span><span>: </span><span style="color:#569cd6;">| 
+</span><span style="background-color:#282828;color:#d69d85;">    # If the last branch merged with `dev` starts with &quot;fix/&quot;...
+</span><span style="background-color:#282828;color:#d69d85;">    if [[ &quot;${{ steps.get_last_dev_merge.outputs.branch_name }}&quot; == fix/* ]]; then
+</span><span style="background-color:#282828;color:#d69d85;">      # ... then increment the patch version.
+</span><span style="background-color:#282828;color:#d69d85;">      echo &quot;bump_type=patch&quot;  &gt;&gt; &quot;$GITHUB_OUTPUT&quot;
+</span><span style="background-color:#282828;color:#d69d85;">    else
+</span><span style="background-color:#282828;color:#d69d85;">      # Otherwise, assume that the minor version needs incrementation.
+</span><span style="background-color:#282828;color:#d69d85;">      echo &quot;bump_type=minor&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;
+</span><span style="background-color:#282828;color:#d69d85;">    fi
+</span></code></pre>
+<h1 id="version-bumping-arrow-up"><a class="zola-anchor" href="#version-bumping-arrow-up" aria-label="Anchor link for: version-bumping-arrow-up">Version Bumping ⬆️</a></h1>
+<p>Version bumps are <a href="https://github.com/goingforbrooke/folsum/blob/645604c6ea87394f0ae4bf6c224e3570b8ed04c0/.github/workflows/build_macos.yml#L116-L120">performed</a> with <a href="https://crates.io/crates/cargo-edit">Cargo Edit’s</a> <code>cargo set-version —bump</code>.</p>
+<blockquote>
+<p>I’m using the <a href="https://github.com/matklad/cargo-xtask/">xtask framework</a> in this example, so the eponymous binary source inside the workspace is specified with <code>—package</code>.</p>
+</blockquote>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>- </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Increment minor/patch version</span><span>
+</span><span>  </span><span style="color:#608b4e;"># Gate version bumping to only happen on main branch and CI/CD branches.
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">if</span><span>: </span><span style="color:#569cd6;">&gt; 
+</span><span style="background-color:#282828;color:#d69d85;">    github.ref == &#39;refs/heads/main&#39;|| startsWith(github.ref, &#39;refs/heads/cicd&#39;)
+</span><span>  </span><span style="color:#608b4e;"># Use Cargo Edit to increment minor/patch version of the project in Cargo.toml.
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">run</span><span>: </span><span style="background-color:#282828;color:#d69d85;">cargo set-version --bump ${{ steps.decide_bump_type.outputs.bump_type }}</span><span>
+</span><span>                         </span><span style="background-color:#282828;color:#d69d85;">--package ${{ steps.get_repo_name.outputs.repo_name }}</span><span>
+</span></code></pre>
+<p>Using a crate to accomplish <code>sed</code>'s job is overkill, but Cargo Edit’s useful later in the pipeline and moves us one step closer toward a self-contained bundling solution. Admittedly, it doesn’t provide a way to extract the version, so we have to <a href="https://github.com/goingforbrooke/folsum/blob/645604c6ea87394f0ae4bf6c224e3570b8ed04c0/.github/workflows/build_macos.yml#L94-L96">fall back on the shell with <code>jq</code></a>.</p>
+<pre data-lang="yaml" style="background-color:#1e1e1e;color:#dcdcdc;" class="language-yaml "><code class="language-yaml" data-lang="yaml"><span>- </span><span style="background-color:#282828;color:#569cd6;">name</span><span>: </span><span style="background-color:#282828;color:#d69d85;">Get current SemVer version from Cargo.toml</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">id</span><span>: </span><span style="background-color:#282828;color:#d69d85;">get_current_semver</span><span>
+</span><span>  </span><span style="background-color:#282828;color:#569cd6;">run</span><span>: </span><span style="background-color:#282828;color:#d69d85;">echo &quot;semver=v$(</span><span>
+</span><span>             </span><span style="background-color:#282828;color:#d69d85;">cargo metadata --format-version 1 |</span><span> 
+</span><span>             </span><span style="background-color:#282828;color:#d69d85;">jq -r &#39;.packages |</span><span>
+</span><span>             </span><span style="background-color:#282828;color:#d69d85;">.[] |</span><span>
+</span><span>             </span><span style="background-color:#282828;color:#d69d85;">select(.name==&quot;${{ steps.get_repo_name.outputs.repo_name }}&quot;) |</span><span> 
+</span><span>             </span><span style="background-color:#282828;color:#d69d85;">.version&#39;)&quot; &gt;&gt; &quot;$GITHUB_OUTPUT&quot;</span><span>
+</span></code></pre>
+<h1 id="afraid-to-commit-broken-heart"><a class="zola-anchor" href="#afraid-to-commit-broken-heart" aria-label="Anchor link for: afraid-to-commit-broken-heart">Afraid to Commit 💔</a></h1>
+<p>The pipeline then commits the SemVer bump in <code>Cargo.toml</code> to the <code>main</code> branch. I’m not a fan of this because (a) committing changes directly to <code>main</code> violates my merging practice and (b) introduces unverified commits into the repo.</p>
+<p>a. In the first issue, we sacrifice form for function because the simplicity gained by <em>breaking the rules</em> outweighs the cost of having another (<code>build</code>) branch to keep track of. This comes with the burden of remembering to <code>git pull</code> the <code>main</code> branch before manually doing a major version bump.</p>
+<p>b. The second issue’s caused by the commit GitHub Action lacking a verification signature, which can be remedied by using a <a href="https://github.com/marketplace/actions/verified-commit">different action</a>. Our threat model doesn’t require a column of pretty green “Verified” marks, but supply chain security’s a growing concern and I enjoy cryptographically stamping “mine” everywhere.</p>
+<h1 id="fixing-the-fixer-woman-medical-symbol"><a class="zola-anchor" href="#fixing-the-fixer-woman-medical-symbol" aria-label="Anchor link for: fixing-the-fixer-woman-medical-symbol">Fixing the Fixer 👩🏼‍⚕️</a></h1>
+<p>The <code>cicd/</code> prefix plays a special role by offering a safe place to troubleshoot the pipeline itself. Builds and version bumps fire as if every commit was a merge to <code>main</code>, but only <a href="https://docs.github.com/en/free-pro-team@latest/rest/releases/releases?apiVersion=2022-11-28#create-a-release">draft releases</a> are created. These are <a href="https://docs.github.com/en/free-pro-team@latest/rest/releases/releases?apiVersion=2022-11-28#list-releases">invisible to users</a> and won’t cause build failures if a release name already exists. This makes it easy to play with the pipeline out of band without soiling the user’s experience or blocking other developers.</p>
+<h1 id="room-for-improvement-chart-with-upwards-trend"><a class="zola-anchor" href="#room-for-improvement-chart-with-upwards-trend" aria-label="Anchor link for: room-for-improvement-chart-with-upwards-trend">Room for Improvement 📈</a></h1>
+<p>The pipeline’s core logic could be improved by appending the short commit hash to the end of the SemVer. Finding the merge commit for broken builds would be much faster and the pipeline wouldn’t fail due to a (SemVer-based) release name already existing. On the other hand, failing this way makes version bump flow control easier to debug by giving a plaintive voice to unexpected behavior. I’d rather fail to release than ship a mislabeled update to users. The latter’s hard to notice and harder to fix.</p>
+<p>Cooperating with other developers under this model would also be difficult because there are no PRs or branch rules to enforce the <code>feat/</code> -&gt; <code>dev</code> -&gt; <code>main</code> merge workflow. This is because I’m the only one on these projects and I haven’t gotten around to it yet.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/han_solo_shrug.jpg" alt="Han Solo shrugging and smiling." class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>Since the pipeline runs on each commit pushed to <code>cicd/</code> branches, too much learning or fixing could get expensive in a private repo. A <a href="https://docs.github.com/en/actions/hosting-your-own-runners/managing-self-hosted-runners/about-self-hosted-runners">self-hosted runner</a> might alleviate this, but I haven’t bothered trying because I’m afraid that it’s not a faithful reproduction of GitHub’s environment. Even if I’m wrong in that assumption, I’d rather spend time migrating to <a href="https://github.com/matklad/cargo-xtask">Xtask</a>.</p>
+<h1 id="concluding-thoughts-clapper"><a class="zola-anchor" href="#concluding-thoughts-clapper" aria-label="Anchor link for: concluding-thoughts-clapper">Concluding Thoughts 🎬</a></h1>
+<p>Leaning on <code>Cargo.toml</code> keeps things simple and clean while keeping Ferris at the center of my galaxy. It’s awesome that I can key this capability off branch-naming conventions that I’ve already built habits for, but I don’t know well my bible sits in the hands of others. At its best, this model strains the capabilities of GitHub Actions due to poor flow control.</p>
+
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Would you like to know more?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://www.goingforbrooke.com/personal_blog/action-universal/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">Build and Notarize Universal Rust Binaries for MacOS</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://www.goingforbrooke.com/personal_blog/digital-garden/">
+                                <span class="button__text">My Digital Garden</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Brooke Deuson</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep">:: </span>
+                        Theme: <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a> by pawroman
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HD5RZH5144"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HD5RZH5144');
+</script>
+
+</html>

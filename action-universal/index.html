@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Build and Notarize Universal Rust Binaries for MacOS | </title>
+    
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1">
+    <meta name="robots" content="noodp"/>
+
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/style.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/turquoise.css">
+
+        <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/color/background_blue.css">
+    
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-exo2.css">
+    <link rel="stylesheet" href="https://www.goingforbrooke.com/personal_blog/font-hack.css">
+    <meta name="description" content="">
+
+    <meta property="og:description" content="">
+    <meta property="og:title" content="Build and Notarize Universal Rust Binaries for MacOS | ">
+    <meta property="og:type" content="article">
+    <meta property="og:url" content="https://www.goingforbrooke.com/personal_blog/action-universal/">
+
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:description" content="">
+    <meta name="twitter:title" content="Build and Notarize Universal Rust Binaries for MacOS | ">
+    <meta property="twitter:domain" content="www.goingforbrooke.com&#x2F;personal_blog&#x2F;">
+    <meta property="twitter:url" content="https://www.goingforbrooke.com/personal_blog/action-universal/">
+
+        <link rel="alternate" type="application/atom+xml" title=" Atom Feed" href="https://www.goingforbrooke.com/personal_blog/atom.xml" />
+    
+        <link rel="icon" href="/favicon.ico" sizes="32x32">
+        <link rel="icon" href="/icon.svg" type="image/svg+xml">
+        <link rel="apple-touch-icon" href="/apple-touch-icon.png"><!-- 180×180 -->
+        <link rel="manifest" href="/manifest.webmanifest">
+    
+    </head>
+
+<body class="">
+<div class="container">
+    
+    <header class="header">
+        <div class="header__inner">
+            <div class="header__logo">
+                    
+                <a href="https://www.goingforbrooke.com" style="text-decoration: none;">
+                    <div class="logo">
+                      
+                            goingforbrooke.com
+                        
+                    </div>
+                </a>
+            </div>
+        </div>
+
+        
+        
+        
+    </header>
+    
+
+    <div class="content">
+        
+    <div class="post">
+        
+    <h1 class="post-title"><a href="https://www.goingforbrooke.com/personal_blog/action-universal/">Build and Notarize Universal Rust Binaries for MacOS</a></h1>
+    <div class="post-meta-inline">
+        
+    <span class="post-date">
+            2023-07-28
+        </span>
+
+    </div>
+
+    
+        <span class="post-tags-inline">
+                :: tags:&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/cicd/">#cicd</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/github-actions/">#github_actions</a>&nbsp;
+                <a class="post-tag" href="https://www.goingforbrooke.com/personal_blog/tags/rust/">#rust</a></span>
+    
+
+        <div class="post-content">
+            <p>Use a Github Action workflow to build "universal" Rust binaries that work for both MacOS chip architectures.</p>
+<span id="continue-reading"></span>
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/apple_orange.png" alt="two realistic Apple logos in red and yellow" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<h1 id="issue"><a class="zola-anchor" href="#issue" aria-label="Anchor link for: issue">Issue</a></h1>
+<p>With MacOS's new M1 chip architecture, there are now two build targets for MacOS: <code>x86_64-apple-darwin</code> and <code>aarch64-apple-darwin</code>. Rather than ask our users to identify their chip architecture on a product installation page, I prefer to have one binary that works for all installation targets.</p>
+
+  
+  
+    
+    
+  
+  <img src="https://www.goingforbrooke.com/personal_blog/mbp_about_chip.png" alt="screenshot of a MacbookPro &#x27;About this Mac&#x27; page" class="center" style="border-radius: 8px;" decoding="async" loading="lazy"/>
+
+<p>Apple's happy path uses XCode, but detest using a vendor-specific GUI to ship software on each release. That leaves us with <a href="https://developer.apple.com/documentation/apple-silicon/building-a-universal-macos-binary#Update-the-Architecture-List-of-Custom-Makefiles"><code>lipo</code></a>, which ships with MacOS. <a href="https://docs.github.com/en/billing/managing-billing-for-github-actions/about-billing-for-github-actions#minute-multipliers">MacOS Runners are expensive</a>, but it's a good start.</p>
+<p>Along the way, we need to notarize the binary with Apple so our users don't get a scary installation popup warning that our application might be malware.</p>
+<h1 id="solution"><a class="zola-anchor" href="#solution" aria-label="Anchor link for: solution">Solution</a></h1>
+<p>This Github Workflow creates two binaries, <code>x86_64-apple-darwin</code> and <code>aarch64-apple-darwin</code> and "smushes them together" with <code>lipo</code>. Then it signs and notarizes the resulting binary and bundles it into a <code>.app</code> that's ready to be installed. There are some other goodies in here, such as a minor SemVer bump and some build caching to speed things up.</p>
+<script src="https://gist.github.com/goingforbrooke/24a36ed60ba97ce9a93c1e0c5036f232.js"></script>
+<h1 id="kudos"><a class="zola-anchor" href="#kudos" aria-label="Anchor link for: kudos">Kudos</a></h1>
+<p>Credit to <a href="https://federicoterzi.com/blog/automatic-code-signing-and-notarization-for-macos-apps-using-github-actions/">Federico Terzi's blog post </a> on signing and notarizing MacOS apps with GitHub Actions.</p>
+
+        </div>
+
+        
+            <div class="pagination">
+                <div class="pagination__title">
+                    <span class="pagination__title-h">Would you like to know more?</span>
+                    <hr />
+                </div>
+                <div class="pagination__buttons">
+                        <span class="button previous">
+                            <a href="https://www.goingforbrooke.com/personal_blog/crappy-guis/">
+                                <span class="button__icon">←</span>&nbsp;
+                                <span class="button__text">My GUIs Suck and that&#x27;s Okay</span>
+                            </a>
+                        </span>
+                    
+                    
+                        <span class="button next">
+                            <a href="https://www.goingforbrooke.com/personal_blog/versioning-version/">
+                                <span class="button__text">Versioning the Version: Branch-Bumping Cargo.toml</span>&nbsp;
+                                <span class="button__icon">→</span>
+                            </a>
+                        </span>
+                    </div>
+            </div>
+        
+    </div>
+
+    </div>
+
+    
+    <footer class="footer">
+        <div class="footer__inner">
+                <div class="copyright">
+                        <span>© 
+    2025
+ Brooke Deuson</span>
+                    <span class="copyright-theme">
+                        <span class="copyright-theme-sep">:: </span>
+                        Theme: <a href="https://github.com/pawroman/zola-theme-terminimal/">Terminimal</a> by pawroman
+                    </span>
+                </div>
+            </div>
+    </footer>
+    
+
+</div>
+</body>
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-HD5RZH5144"></script>
+<script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    gtag('config', 'G-HD5RZH5144');
+</script>
+
+</html>
