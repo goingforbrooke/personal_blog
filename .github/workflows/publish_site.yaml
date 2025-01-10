@@ -27,7 +27,6 @@ jobs:
       name: Build with Zola Action and Deploy with GitHub's "static" Starter Workflow
       url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
     steps:
       - name: Checkout
         uses: actions/checkout@v4
