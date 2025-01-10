@@ -47,7 +47,7 @@ background_color = "blue"
 logo_text = "⌂ goingforbrooke.com"
 
 # Link back to the main site when "goingforbrooke" is clicked in the top left.
-logo_home_link = "https://www.goingforbrooke.com"
+logo_home_link = "https://goingforbrooke.com"
 
 # Whether to show links to earlier and later posts
 # on each post page.
