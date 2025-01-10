@@ -22,8 +22,6 @@ jobs:
         env:
           # Don't deploy to gh-pages b/c legacy. Instead, output to `public/` and let the next job do it. https://github.com/orgs/community/discussions/57010#discussioncomment-6076233
           BUILD_ONLY: true
-          # Or if publishing to the same repo, use the automatic token
-          TOKEN: ${{ secrets.TOKEN }}
       # Deploy static files with GitHub's "static" starter workflow. https://github.com/actions/starter-workflows/blob/main/pages/static.yml
       - name: Setup Pages
         uses: actions/configure-pages@v5
