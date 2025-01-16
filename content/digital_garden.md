@@ -95,7 +95,7 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
     - development practices
   - [moohax](https://moohax.substack.com)
     - AI for offensive security
-  - [Ohrun](https://blog.orhun.dev/open-source-funding-with-ratatui/)
+  - [Orhun](https://blog.orhun.dev/open-source-funding-with-ratatui/)
     - Ratatui (Rust TUI library)
   - [JeanHeyd Meneide "The Pasture"](https://thephd.dev)
     - C
