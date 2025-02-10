@@ -171,6 +171,9 @@ Inspired by [Gwern's blog](https://gwern.net/about#development), I want to make 
   - [cargo edit](https://github.com/killercup/cargo-edit)
   - [CLI recommendations](https://rust-cli-recommendations.sunshowers.io)
       - [clap subcommand structure](https://rust-cli-recommendations.sunshowers.io/handling-arguments.html) from [@rain](https://sunshowers.io)
+  - conditional compilation
+    - [Rust Reference: conditional compilation](https://doc.rust-lang.org/reference/conditional-compilation.html)
+    - [good blog post with examples on conditional compilation](https://masteringbackend.com/posts/cfg-conditional-compilation-in-rust)
   - design patterns
     - Let's Get Rusty YouTube Video
       - [newtype pattern](https://youtu.be/NDIU1GSBrVI?si=wCxLCoDcq89LM9s2&t=327)
