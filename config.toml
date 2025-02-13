@@ -65,3 +65,6 @@ use_full_hack_font = 'exo2'
 favicon = true
 
 default_language = 'English'
+
+#If the page doesn't set og_image, use this one as fallback.
+default_og_image = "static/g4b_social_media_banner.png"
