@@ -16,7 +16,7 @@ Streaming myself coding was strange, terrifying, and fun all at the same time.
          alt="Blonde woman coding at a desk with imposing cameras pointed at her.",
          style="border-radius: 8px;") }}
 
-Coding in front of other people is tense undertaking. It's something that I've spent thousands of hours doing in privacy, comfortable in the certainty that the world will never see the process behind the product.
+Coding in front of other people is a tense undertaking. It's something that I've spent thousands of hours doing in privacy, comfortable in the certainty that the world will never see the process behind the product.
 
 Unlike the nerve wracking blitz of coding interviews, broadcasting my *process* to the world is more of a slow burn. I'm allowed to make mistakes and pursue rabbit holes, but each moment carries the uncertainty of whether I'm doing a *good job*.
 
